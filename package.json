@@ -1,6 +1,6 @@
 {
   "name": "advent-of-code-vscode",
-  "displayName": "AdventOfCode",
+  "displayName": "Advent of Code",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -10,16 +10,44 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:advent-of-code-vscode.helloWorld"
+    "onView:AoC"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "advent-of-code-vscode.helloWorld",
-        "title": "Hello World"
-      }
-    ]
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aoc",
+          "title": "Advent of Code",
+          "icon": "res/aoc.svg"
+        }
+      ]
+    },
+    "views": {
+      "aoc": [
+        {
+          "id": "description",
+          "name": "Description",
+          "icon": "res/aoc.svg",
+          "contextualTitle": "View Description of AoC"
+        },
+        {
+          "id": "data",
+          "name": "Data",
+          "icon": "res/aoc.svg",
+          "contextualTitle": "Get Data for AoC Day",
+          "visibility": "hidden"
+        },
+        {
+          "id": "login",
+          "name": "Login/Logout",
+          "icon": "res/aoc.svg",
+          "contextualTitle": "Log in/out from AoC",
+          "visibility": "collapsed"
+        }
+
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
