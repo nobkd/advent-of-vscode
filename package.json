@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:AoC"
+    "onView:aoc"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -26,28 +26,23 @@
     "views": {
       "aoc": [
         {
-          "id": "description",
+          "id": "selectDayView",
+          "name": "Select Day",
+          "contextualTitle": "Select Day to Display Information"
+        },
+        {
+          "id": "descriptionView",
           "name": "Description",
-          "icon": "res/aoc.svg",
-          "contextualTitle": "View Description of AoC"
+          "contextualTitle": "View Description of Selected Day"
         },
         {
-          "id": "data",
+          "id": "dataView",
           "name": "Data",
-          "icon": "res/aoc.svg",
-          "contextualTitle": "Get Data for AoC Day",
-          "visibility": "hidden"
-        },
-        {
-          "id": "login",
-          "name": "Login/Logout",
-          "icon": "res/aoc.svg",
-          "contextualTitle": "Log in/out from AoC",
-          "visibility": "collapsed"
+          "contextualTitle": "Get Data for Selected Day"
         }
-
       ]
-    }
+    },
+    "commands": []
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
