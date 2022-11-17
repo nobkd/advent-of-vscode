@@ -5,7 +5,7 @@ import { SelectDayView } from './view/selectDayView';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	console.log('Congratulations, your extension "advent-of-code-vscode" is now active!');
+	console.log('Congratulations, your extension "advent-of-vscode" is now active!');
 
 	new SelectDayView(context);
 	new DataView(context);

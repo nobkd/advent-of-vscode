@@ -1,6 +1,6 @@
 {
-  "name": "advent-of-code-vscode",
-  "displayName": "Advent of Code",
+  "name": "advent-of-vscode",
+  "displayName": "Advent of VSCode",
   "description": "",
   "version": "0.0.1",
   "engines": {
