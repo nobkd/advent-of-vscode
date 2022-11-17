@@ -1,4 +1,4 @@
-# advent-of-code-vscode README
+# advent-of-vscode README
 
 This is the README for your extension "advent-of-code-vscode". After writing up a brief description, we recommend including the following sections.
 
