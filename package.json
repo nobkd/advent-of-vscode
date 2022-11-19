@@ -13,7 +13,9 @@
     "onView:aoc",
     "onView:selectDayView",
     "onView:descriptionView",
-    "onView:dataView"
+    "onView:dataView",
+    "onCommand:advent-of-vscode.login",
+    "onCommand:advent-of-vscode.logout"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -22,7 +24,7 @@
         {
           "id": "aoc",
           "title": "Advent of Code",
-          "icon": "res/aoc.svg"
+          "icon": "res/icon.svg"
         }
       ]
     },
@@ -45,7 +47,39 @@
         }
       ]
     },
-    "commands": []
+    "viewsWelcome": [
+      {
+        "view": "dataView",
+        "contents": "Please log in using your AoC cookie\n[Open AoC Website](https://adventofcode.com)\n[Login](command:advent-of-vscode.login)",
+        "when": "true"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "advent-of-vscode.save-data",
+          "when": "view == dataView",
+          "group": "navigation"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "advent-of-vscode.login",
+        "title": "Log in to Advent of Code",
+        "icon": "res/login.svg"
+      },
+      {
+        "command": "advent-of-vscode.logout",
+        "title": "Log out of Advent of Code",
+        "icon": "res/logout.svg"
+      },
+      {
+        "command": "advent-of-vscode.save-data",
+        "title": "Save AoC Data as File",
+        "icon": "res/save.svg"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
