@@ -1,5 +1,9 @@
 import * as vscode from 'vscode';
 
+// https://code.visualstudio.com/api/extension-guides/tree-view
+
+// TODO: finish tree generation and display and push selected day to global context for desciptionView and dataView to access it
+
 export class SelectDayView {
     constructor(context: vscode.ExtensionContext) {
         const view = vscode.window.createTreeView('selectDayView', { treeDataProvider: provider(), showCollapseAll: true, canSelectMany: false });
@@ -7,43 +11,43 @@ export class SelectDayView {
     }
 }
 
-function generateTree(endYear: number, endMonth: number, endDay: number): Map<number, number[]> {
-    const currentMonthIsDecember = endMonth === 12;
+function generateTree(): object {
+    const date: Date = new Date();
+    const year: number = date.getFullYear();
+    const month: number = date.getMonth();
+    const day: number = date.getDate();
 
-    const years: number[] = [];
-    for (let yearCounter = 2015; yearCounter <= (currentMonthIsDecember ? endYear : endYear - 1); yearCounter++) {
-        years.push(yearCounter);
-    }
+    const startYear: number = 2015;
+    const isDecember: boolean = month === 12;
+    const decemberDays: number = 31;
 
-    const days: number[] = [];
-    for (let dayCounter = 1; dayCounter <= 31; dayCounter++) {
-        days.push(dayCounter);
-    }
+    const yearCount: number = year - startYear;
+    let counter: number = startYear;
+    const years: number[] = [...new Array(isDecember ? yearCount + 1 : yearCount)].map(() => counter++);
+    counter = 1;
+    const fullMonths: number[] = [...new Array(decemberDays)].map(() => counter++);
+    counter = 1;
+    const currentMonth: number[] = [...new Array(isDecember ? day : 0)].map(() => counter++);
 
-    const currentDays: number[] = [];
-    if (currentMonthIsDecember) {
-        for (let dayCounter = 1; dayCounter <= endDay; dayCounter++) {
-            currentDays.push(dayCounter);
-        }
-    }
+    // TODO convert to parsable syntax fpr TreeView and TreeDataProvider ...
 
-    const data: Map<number, number[]> = new Map<number, number[]>();
-    years.forEach(element => {
-        data.set(element, days);
-    });
-
-    if (years.indexOf(endYear) !== -1) {
-        data.set(endYear, currentDays);
-    }
-
-    console.log(data);
-
-    return data;
+    return {};
 }
 
 function provider(): vscode.TreeDataProvider<{ key: string }> {
-    const date: Date = new Date();
-    const tree = generateTree(date.getFullYear(), 12 /*date.getMonth()*/, date.getDate());
+    const tree: object = generateTree();
+    console.log(tree);
 
-    return tree;
+    return {
+        getChildren: (element: { key: string } | undefined): { key: string }[] | undefined => {
+            return;
+        },
+        getTreeItem: (element: { key: string }): vscode.TreeItem => {
+            const treeElement = {};
+            return {
+                label: element.key,
+                collapsibleState: treeElement && Object.keys(treeElement).length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
+            };
+        },
+    };
 }
