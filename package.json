@@ -93,12 +93,12 @@
     "commands": [
       {
         "command": "advent-of-vscode.login",
-        "title": "Log in to Advent of Code",
+        "title": "Log in to AoC",
         "icon": "$(log-in)"
       },
       {
         "command": "advent-of-vscode.logout",
-        "title": "Log out of Advent of Code",
+        "title": "Log out of AoC",
         "icon": "$(log-out)"
       },
       {
