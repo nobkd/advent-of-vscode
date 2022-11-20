@@ -109,10 +109,7 @@
       {
         "command": "advent-of-vscode.copy-data",
         "title": "Copy AoC Data to Clipboard",
-        "icon": {
-          "dark": "res/copy-clipboard-dark.svg",
-          "light": "res/copy-clipboard-light.svg"
-        }
+        "icon": "$(files)"
       }
     ]
   },
