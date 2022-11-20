@@ -62,12 +62,12 @@
           "group": "navigation"
         },
         {
-          "command": "advent-of-vscode.save-data",
+          "command": "advent-of-vscode.saveData",
           "when": "view == dataView && advent-of-vscode.loggedIn",
           "group": "navigation@0"
         },
         {
-          "command": "advent-of-vscode.copy-data",
+          "command": "advent-of-vscode.copyData",
           "when": "view == dataView && advent-of-vscode.loggedIn",
           "group": "navigation@1"
         },
@@ -79,12 +79,12 @@
       ],
       "view/item/context": [
         {
-          "command": "advent-of-vscode.save-data",
+          "command": "advent-of-vscode.saveData",
           "when": "view == selectDayView && advent-of-vscode.loggedIn && viewItem == file",
           "group": "inline@0"
         },
         {
-          "command": "advent-of-vscode.copy-data",
+          "command": "advent-of-vscode.copyData",
           "when": "view == selectDayView && advent-of-vscode.loggedIn && viewItem == file",
           "group": "inline@1"
         }
@@ -102,12 +102,12 @@
         "icon": "$(log-out)"
       },
       {
-        "command": "advent-of-vscode.save-data",
+        "command": "advent-of-vscode.saveData",
         "title": "Save AoC Data as File",
         "icon": "$(save-as)"
       },
       {
-        "command": "advent-of-vscode.copy-data",
+        "command": "advent-of-vscode.copyData",
         "title": "Copy AoC Data to Clipboard",
         "icon": "$(files)"
       }
