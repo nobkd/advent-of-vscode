@@ -12,13 +12,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 	console.log('Congratulations, your extension "advent-of-vscode" is now active!');
 
-	// TODO remove / read if cookie is saved & set if logged in
-	vscode.commands.executeCommand(
-		'setContext',
-		'advent-of-vscode.loggedIn',
-		true
-	);
-
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.login', (args) =>
 			login(context, args)

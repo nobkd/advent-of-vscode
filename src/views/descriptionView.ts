@@ -7,6 +7,9 @@ import * as vscode from 'vscode';
 export class DescriptionView implements vscode.WebviewViewProvider {
     constructor(private context: vscode.ExtensionContext) {
 
+        // TODO: implement watcher / change listener
+        console.log(context.globalState.get('advent-of-vscode.selected'));
+
     };
 
     resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext<unknown>, token: vscode.CancellationToken): void | Thenable<void> {

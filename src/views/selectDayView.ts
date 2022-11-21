@@ -1,4 +1,3 @@
-import { getProfileArguments } from '@vscode/test-electron/out/runTest';
 import * as vscode from 'vscode';
 
 type Tree = object & {
@@ -60,11 +59,17 @@ function provider(): vscode.TreeDataProvider<Tree> {
             return element === undefined ? tree : element.children;
         },
         getTreeItem: (element: Tree): vscode.TreeItem => {
+            const isDay: boolean = element.children === undefined;
+
             return {
                 label: element.key.toString(),
                 collapsibleState: element && element.children?.length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
-                contextValue: element.children === undefined ? "day" : "year",
-                //command: set `selected` with element.year, element.day
+                contextValue: isDay ? "day" : "year",
+                command: isDay ? {
+                    title: 'Select AoC Day',
+                    command: 'setContext',
+                    arguments: ['advent-of-vscode.selected', element.year, element.key]
+                } : undefined
             };
         }
     };
