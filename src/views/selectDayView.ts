@@ -63,7 +63,7 @@ function provider(): vscode.TreeDataProvider<Tree> {
             return {
                 label: element.key.toString(),
                 collapsibleState: element && element.children?.length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
-                contextValue: element.children === null ? "day" : "year",
+                contextValue: element.children === undefined ? "day" : "year",
                 //command: set `selected` with element.year, element.day
             };
         }
