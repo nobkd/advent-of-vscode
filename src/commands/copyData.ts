@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 export async function copyData(context: vscode.ExtensionContext, args: Array<number> | undefined): Promise<void> {
     if (args === undefined || args === null || args?.length < 2) {
-        vscode.window.showErrorMessage('Command: "advent-of-vscode.copyData" failed due to missing arguments')
+        vscode.window.showErrorMessage('Command: "advent-of-vscode.copyData" failed due to missing arguments');
         return;
     }
     const [year, day]: number[] = args;
