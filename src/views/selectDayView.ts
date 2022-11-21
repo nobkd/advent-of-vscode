@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 type Tree = object & {
     key: number,
-    child: Tree | null
+    children: Tree[] | null
 };
 
 // https://code.visualstudio.com/api/extension-guides/tree-view
@@ -16,7 +16,7 @@ export class SelectDayView {
     }
 }
 
-function generateTree(): object {
+function generateTree(): Tree[] {
     const date: Date = new Date();
     const year: number = date.getFullYear();
     const month: number = date.getMonth();
@@ -32,31 +32,34 @@ function generateTree(): object {
     counter = 1;
     const fullMonths: number[] = [...new Array(decemberDays)].map(() => counter++);
 
-    const fullMonthsObjects: Tree[] = fullMonths.map((value: number, index: number, array: number) => {
-        return { key: value, child: null };
+    const fullMonthsObjects: Tree[] = fullMonths.map((value: number, index: number, array: number[]) => {
+        return { key: value, children: null };
     });
-    const currentMonthObjects: Tree[] = isDecember ? fullMonthsObject.slice(0, day - 1) : [];
+    const currentMonthObjects: Tree[] = isDecember ? fullMonthsObjects.slice(0, day) : [];
 
-    const yearsObject: Tree[] = years.map((value: number, index: number, array: number[]) => {
-        return { key: value, child: value !== year ? fullMonthsObjects : currentMonthObjects };
+    const yearsObjects: Tree[] = years.map((value: number, index: number, array: number[]) => {
+        return { key: value, children: value !== year ? fullMonthsObjects : currentMonthObjects };
     });
 
-    return yearsObject;
+    return yearsObjects;
 }
 
-function provider(): vscode.TreeDataProvider<{ key: number }> {
-    const tree: object = generateTree();
+function provider(): vscode.TreeDataProvider<Tree> {
+    const tree: Tree[] = generateTree();
     console.log(tree);
 
     return {
-        getChildren: (element: { key: number } | undefined): { key: number }[] | undefined => {
-            return;
+        getChildren: (element: Tree | undefined): Tree[] | undefined => {
+            if (element === undefined) {
+                return tree;
+            }
+
+            return element.children || undefined;
         },
-        getTreeItem: (element: { key: number }): vscode.TreeItem => {
-            const treeElement = {};
+        getTreeItem: (element: Tree): vscode.TreeItem => {
             return {
-                label: element.key,
-                collapsibleState: treeElement && Object.keys(treeElement).length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
+                label: element.key.toString(),
+                collapsibleState: element && element.children?.length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
             };
         },
     };
