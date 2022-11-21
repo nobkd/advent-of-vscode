@@ -32,14 +32,14 @@ function generateTree(): object {
     counter = 1;
     const fullMonths: number[] = [...new Array(decemberDays)].map(() => counter++);
     // TODO convert to parsable syntax fpr TreeView and TreeDataProvider ...
-    
+
     const fullMonthsObjects: Tree[] = fullMonths.map((value: number, index: number, array: number) => {
-        return {key: value, child: null};
+        return { key: value, child: null };
     });
     const currentMonthObjects: Tree[] = isDecember ? fullMonthsObject.slice(0, day - 1) : [];
 
     const yearsObject: Tree[] = years.map((value: number, index: number, array: number[]) => {
-        return {key: value, child: value !== year ? fullMonthsObjects : currentMonthObjects};
+        return { key: value, child: value !== year ? fullMonthsObjects : currentMonthObjects };
     });
 
     return yearsObject;
