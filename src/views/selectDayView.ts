@@ -31,7 +31,6 @@ function generateTree(): object {
     const years: number[] = [...new Array(isDecember ? yearCount + 1 : yearCount)].map(() => counter++);
     counter = 1;
     const fullMonths: number[] = [...new Array(decemberDays)].map(() => counter++);
-    // TODO convert to parsable syntax fpr TreeView and TreeDataProvider ...
 
     const fullMonthsObjects: Tree[] = fullMonths.map((value: number, index: number, array: number) => {
         return { key: value, child: null };
