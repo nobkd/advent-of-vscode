@@ -1,5 +1,10 @@
 import * as vscode from 'vscode';
 
+type Tree = object & {
+    key: number,
+    child: Tree | null
+};
+
 // https://code.visualstudio.com/api/extension-guides/tree-view
 
 // TODO: finish tree generation and display and push selected day to global context for desciptionView and dataView to access it
@@ -26,23 +31,29 @@ function generateTree(): object {
     const years: number[] = [...new Array(isDecember ? yearCount + 1 : yearCount)].map(() => counter++);
     counter = 1;
     const fullMonths: number[] = [...new Array(decemberDays)].map(() => counter++);
-    counter = 1;
-    const currentMonth: number[] = [...new Array(isDecember ? day : 0)].map(() => counter++);
-
     // TODO convert to parsable syntax fpr TreeView and TreeDataProvider ...
+    
+    const fullMonthsObjects: Tree[] = fullMonths.map((value: number, index: number, array: number) => {
+        return {key: value, child: null};
+    });
+    const currentMonthObjects: Tree[] = isDecember ? fullMonthsObject.slice(0, day - 1) : [];
 
-    return {};
+    const yearsObject: Tree[] = years.map((value: number, index: number, array: number[]) => {
+        return {key: value, child: value !== year ? fullMonthsObjects : currentMonthObjects};
+    });
+
+    return yearsObject;
 }
 
-function provider(): vscode.TreeDataProvider<{ key: string }> {
+function provider(): vscode.TreeDataProvider<{ key: number }> {
     const tree: object = generateTree();
     console.log(tree);
 
     return {
-        getChildren: (element: { key: string } | undefined): { key: string }[] | undefined => {
+        getChildren: (element: { key: number } | undefined): { key: number }[] | undefined => {
             return;
         },
-        getTreeItem: (element: { key: string }): vscode.TreeItem => {
+        getTreeItem: (element: { key: number }): vscode.TreeItem => {
             const treeElement = {};
             return {
                 label: element.key,
