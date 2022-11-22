@@ -29,7 +29,12 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	new SelectDayView(context);
-	new DescriptionView(context);
+	const descriptionViewProvider = new DescriptionView(context);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider('descriptionView',
+			descriptionViewProvider
+		)
+	);
 	new DataView(context);
 }
 

@@ -32,11 +32,13 @@
       "aoc": [
         {
           "id": "selectDayView",
+          "type": "tree",
           "name": "Select Day",
           "contextualTitle": "Select Day to Display Information"
         },
         {
           "id": "descriptionView",
+          "type": "webview",
           "name": "Description",
           "contextualTitle": "View Description of Selected Day"
         },
