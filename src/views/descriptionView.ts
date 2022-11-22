@@ -7,29 +7,48 @@ import * as vscode from 'vscode';
 export class DescriptionView implements vscode.WebviewViewProvider {
     private _view?: vscode.WebviewView;
 
-    constructor(private context: vscode.ExtensionContext) {}
+    constructor(private context: vscode.ExtensionContext) { }
 
     resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext<unknown>, token: vscode.CancellationToken): void | Thenable<void> {
         this._view = webviewView;
 
         webviewView.webview.options = {
-            enableScripts: true,
-            enableForms: false
+            enableScripts: true
         };
 
         console.log(this.context.globalState.get('advent-of-vscode.selected'));
 
+        const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'main.js'));
+        const nonce = getNonce();
+
         webviewView.webview.html = `
         <!DOCTYPE html>
-        <html lang="en" style="margin: 0; padding: 0; border: 0;">
+        <html lang="en">
             <head>
                 <meta charset="UTF-8">
+                <!-- TODO: add styles -->
             </head>
-            <body style="height: 100vh; width: 100vw;">
-                <iframe src="https://www.adventofcode.com/" width="100%" height="100%">
+            <body>
+                <div id="view">Nothing to see here :(</div>
+                <script nonce="${nonce}" src="${scriptUri}"></script>
             </body>
         </html>
         `;
 
     }
+
+    selectDay(year: number, day: number): void {
+        // TODO: get data from aoc / cache
+        const data = `<a href="https://adventofcode.com/${year}/day/${day}>AoC ${year} ${day}</a>`;
+        this._view?.webview.postMessage(data);
+    }
+}
+
+function getNonce(): string {
+    let text: string = '';
+    const possible: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 32; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
 }

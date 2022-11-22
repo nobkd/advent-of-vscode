@@ -112,6 +112,10 @@
         "command": "advent-of-vscode.copyData",
         "title": "Copy AoC Data to Clipboard",
         "icon": "$(files)"
+      },
+      {
+        "command": "advent-of-vscode.select",
+        "title": "Select AoC Year & Day"
       }
     ]
   },

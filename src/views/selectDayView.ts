@@ -67,8 +67,8 @@ function provider(): vscode.TreeDataProvider<Tree> {
                 contextValue: isDay ? "day" : "year",
                 command: isDay ? {
                     title: 'Select AoC Day',
-                    command: 'setContext',
-                    arguments: ['advent-of-vscode.selected', element.year, element.key]
+                    command: 'advent-of-vscode.select',
+                    arguments: [element.year, element.key]
                 } : undefined
             };
         }

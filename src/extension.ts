@@ -28,13 +28,20 @@ export function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
-	new SelectDayView(context);
+
 	const descriptionViewProvider = new DescriptionView(context);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider('descriptionView',
-			descriptionViewProvider
+			descriptionViewProvider,
+			{ webviewOptions: { retainContextWhenHidden: true } }
 		)
 	);
+	context.subscriptions.push(
+		vscode.commands.registerCommand('advent-of-vscode.select',
+			(year: number, day: number) => descriptionViewProvider.selectDay(year, day))
+	);
+
+	new SelectDayView(context);
 	new DataView(context);
 }
 
