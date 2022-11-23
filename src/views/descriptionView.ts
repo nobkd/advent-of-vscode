@@ -12,9 +12,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext<unknown>, token: vscode.CancellationToken): void | Thenable<void> {
         this._view = webviewView;
 
-        webviewView.webview.options = {
-            enableScripts: true
-        };
+        webviewView.webview.options = { enableScripts: true };
 
         console.log(this.context.globalState.get('advent-of-vscode.selected'));
 
@@ -27,7 +25,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
             <head>
                 <meta charset="UTF-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src '${nonce}'; style-src ${webviewView.webview.cspSource};"/>
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}'; style-src ${webviewView.webview.cspSource};"/>
                 <!-- TODO: add styles -->
             </head>
             <body>
@@ -41,8 +39,8 @@ export class DescriptionView implements vscode.WebviewViewProvider {
 
     selectDay(year: number, day: number): void {
         // TODO: get data from aoc / cache
-        const data = `<a href="https://adventofcode.com/${year}/day/${day}>AoC ${year} ${day}</a>`;
-        this._view?.webview.postMessage(data);
+        const data = `<a href="https://adventofcode.com/${year}/day/${day}">AoC ${year} ${day}</a>`;
+        this._view!.webview.postMessage(data);
     }
 }
 
