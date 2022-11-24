@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
-import { loadWebsiteData } from '../commands/loadWebsiteData';
+
+import { getData } from '../utils/getData';
+import { getUrl } from '../utils/getUrl';
 
 // https://code.visualstudio.com/api/extension-guides/webview
 
@@ -44,7 +46,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         this._view!.description = `AoC ${year} Day ${day}`;
         this._view!.webview.postMessage('Please wait...');
 
-        const data = await loadWebsiteData(year, day);
+        const data = await getData(getUrl(year, day, false));
         this._view!.webview.postMessage(data !== undefined ? data as string : placeholder);
     }
 }
