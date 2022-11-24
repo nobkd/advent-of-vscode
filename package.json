@@ -15,7 +15,8 @@
     "onView:descriptionView",
     "onView:dataView",
     "onCommand:advent-of-vscode.login",
-    "onCommand:advent-of-vscode.logout"
+    "onCommand:advent-of-vscode.logout",
+    "onCommand:advent-of-vscode.loadCookie"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -116,6 +117,10 @@
       {
         "command": "advent-of-vscode.select",
         "title": "Select AoC Year & Day"
+      },
+      {
+        "command": "advent-of-vscode.loadCookie",
+        "title": "Load AoC Cookie from Secrets"
       }
     ]
   },

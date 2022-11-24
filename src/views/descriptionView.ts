@@ -1,19 +1,23 @@
 import * as vscode from 'vscode';
 
-import { getData } from '../utils/getData';
-import { getUrl } from '../utils/getUrl';
+import { getNonce } from '../utils/helper';
+import { getDescription } from '../utils/request';
 
 // https://code.visualstudio.com/api/extension-guides/webview
-
-// TODO: implement requesting description to active day from https://adventofcode.com then format it fitting to vscode and display it
-
 
 const placeholder: string = 'Nothing to see here :(';
 
 export class DescriptionView implements vscode.WebviewViewProvider {
     private _view?: vscode.WebviewView;
 
-    constructor(private context: vscode.ExtensionContext) { }
+    constructor(private context: vscode.ExtensionContext) {
+        context.subscriptions.push(
+            vscode.window.registerWebviewViewProvider('descriptionView',
+                this,
+                { webviewOptions: { retainContextWhenHidden: true } },
+            )
+        );
+    }
 
     resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext<unknown>, token: vscode.CancellationToken): void | Thenable<void> {
         this._view = webviewView;
@@ -29,8 +33,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}'; style-src ${webviewView.webview.cspSource};"/>
-                <!-- TODO: add styles -->
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}';"/>
             </head>
             <body>
                 <div id="view">${placeholder}</div>
@@ -46,16 +49,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         this._view!.description = `AoC ${year} Day ${day}`;
         this._view!.webview.postMessage('Please wait...');
 
-        const data = await getData(getUrl(year, day, false));
-        this._view!.webview.postMessage(data !== undefined ? data as string : placeholder);
+        const data = await getDescription(year, day);
+        this._view!.webview.postMessage(data);
     }
-}
-
-function getNonce(): string {
-    let text: string = '';
-    const possible: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 32; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
 }

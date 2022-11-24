@@ -5,11 +5,8 @@ export function login(context: vscode.ExtensionContext, args: Array<any> | undef
 	// TODO: save cookie as secret
 	// TODO: implement logic of checking if user really is logged in
 
-	//context.secrets.store('advent-of-vscode.loginCookie', 'cookie');
+	const cookie: string = ''; // TODO: check if cookie valid
+	context.secrets.store('advent-of-vscode.loginCookie', cookie);
 
-	vscode.commands.executeCommand(
-		'setContext',
-		'advent-of-vscode.loggedIn',
-		true
-	);
+	vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
 }

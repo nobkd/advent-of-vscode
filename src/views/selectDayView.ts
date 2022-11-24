@@ -8,12 +8,15 @@ type Tree = object & {
 
 // https://code.visualstudio.com/api/extension-guides/tree-view
 
-// TODO: finish tree generation and display and push selected day to global context for desciptionView and dataView to access it
-
 export class SelectDayView {
     constructor(context: vscode.ExtensionContext) {
-        const view = vscode.window.createTreeView('selectDayView', { treeDataProvider: provider(), showCollapseAll: true, canSelectMany: false });
-        context.subscriptions.push(view);
+        context.subscriptions.push(
+            vscode.window.createTreeView('selectDayView', {
+                treeDataProvider: provider(),
+                showCollapseAll: true,
+                canSelectMany: false,
+            })
+        );
     }
 }
 

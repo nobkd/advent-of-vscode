@@ -7,6 +7,6 @@ import * as vscode from 'vscode';
 
 export class DataView {
 	constructor(context: vscode.ExtensionContext) {
-
+		// TODO: register
 	}
 }

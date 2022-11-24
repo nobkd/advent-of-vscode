@@ -7,10 +7,19 @@ import { copyData } from './commands/copyData';
 import { DataView } from './views/dataView';
 import { DescriptionView } from './views/descriptionView';
 import { SelectDayView } from './views/selectDayView';
+import { testCookie } from './utils/request';
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+	context.subscriptions.push(
+		vscode.commands.registerCommand('advent-of-vscode.loadCookie', async (): Promise<string | undefined> => {
+			const cookie = await context.secrets.get('advent-of-vscode.loginCookie');
+			const loggedIn = await testCookie(cookie);
 
-	console.log('Congratulations, your extension "advent-of-vscode" is now active!');
+			vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', loggedIn);
+
+			return loggedIn ? cookie : undefined;
+		})
+	);
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.login', (args) =>
@@ -22,26 +31,21 @@ export function activate(context: vscode.ExtensionContext) {
 			logout(context, args)
 		)
 	);
+
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.copyData', (args) =>
 			copyData(context, args)
 		)
 	);
 
-
-	const descriptionViewProvider = new DescriptionView(context);
-	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider('descriptionView',
-			descriptionViewProvider,
-			{ webviewOptions: { retainContextWhenHidden: true } }
-		)
-	);
+	const descriptionView = new DescriptionView(context);
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.select',
-			(year: number, day: number) => descriptionViewProvider.selectDay(year, day))
+			(year: number, day: number) => descriptionView.selectDay(year, day))
 	);
 
 	new SelectDayView(context);
+
 	new DataView(context);
 }
 
