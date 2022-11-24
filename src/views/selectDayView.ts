@@ -25,13 +25,13 @@ function generateTree(): Tree[] {
 
     const startYear: number = 2015;
     const isDecember: boolean = month === 12;
-    const decemberDays: number = 31;
+    const puzzleDays: number = 25;
 
     const yearCount: number = year - startYear;
     let counter: number = startYear;
     const years: number[] = [...new Array(isDecember ? yearCount + 1 : yearCount)].map(() => counter++);
     counter = 1;
-    const fullMonths: number[] = [...new Array(decemberDays)].map(() => counter++);
+    const fullMonths: number[] = [...new Array(puzzleDays)].map(() => counter++);
 
     const fullMonthsObjects: Tree[] = fullMonths.map((itemValue: number) => {
         return { key: itemValue };
