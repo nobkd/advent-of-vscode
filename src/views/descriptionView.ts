@@ -1,8 +1,12 @@
 import * as vscode from 'vscode';
+import { loadWebsiteData } from '../commands/loadWebsiteData';
 
 // https://code.visualstudio.com/api/extension-guides/webview
 
 // TODO: implement requesting description to active day from https://adventofcode.com then format it fitting to vscode and display it
+
+
+const placeholder: string = 'Nothing to see here :(';
 
 export class DescriptionView implements vscode.WebviewViewProvider {
     private _view?: vscode.WebviewView;
@@ -14,8 +18,6 @@ export class DescriptionView implements vscode.WebviewViewProvider {
 
         webviewView.webview.options = { enableScripts: true };
 
-        console.log(this.context.globalState.get('advent-of-vscode.selected'));
-
         const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'main.js'));
         const nonce = getNonce();
 
@@ -23,13 +25,13 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         <!DOCTYPE html>
         <html lang="en">
             <head>
-                <meta charset="UTF-8"/>
+                <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}'; style-src ${webviewView.webview.cspSource};"/>
                 <!-- TODO: add styles -->
             </head>
             <body>
-                <div id="view">Nothing to see here :(</div>
+                <div id="view">${placeholder}</div>
                 <script nonce="${nonce}" src="${scriptUri}"></script>
             </body>
         </html>
@@ -37,10 +39,12 @@ export class DescriptionView implements vscode.WebviewViewProvider {
 
     }
 
-    selectDay(year: number, day: number): void {
+    async selectDay(year: number, day: number): Promise<void> {
         // TODO: get data from aoc / cache
-        const data = `<a href="https://adventofcode.com/${year}/day/${day}">AoC ${year} ${day}</a>`;
-        this._view!.webview.postMessage(data);
+        this._view!.description = `AoC ${year} Day ${day}`;
+
+        const data = await loadWebsiteData(year, day);
+        this._view!.webview.postMessage(data !== undefined ? data as string : placeholder);
     }
 }
 
