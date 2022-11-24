@@ -42,6 +42,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     async selectDay(year: number, day: number): Promise<void> {
         // TODO: get data from aoc / cache
         this._view!.description = `AoC ${year} Day ${day}`;
+        this._view!.webview.postMessage('Please wait...');
 
         const data = await loadWebsiteData(year, day);
         this._view!.webview.postMessage(data !== undefined ? data as string : placeholder);
