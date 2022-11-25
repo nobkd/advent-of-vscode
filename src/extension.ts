@@ -11,6 +11,8 @@ import { SelectDayView } from './views/selectDayView';
 import { testCookie } from './utils/request';
 
 export async function activate(context: vscode.ExtensionContext) {
+
+	// TODO: check if internet available
 	// TODO: check if secrets are supported & run different unsafe? aporach to saving data
 	vscode.commands.executeCommand('setContext', 'advent-of-vscode.secretsSupported', true);
 

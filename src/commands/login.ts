@@ -22,13 +22,15 @@ export async function login(context: vscode.ExtensionContext, args: Array<any> |
 		if (await testCookie(cookie)) {
 			if (secretsSupported) {
 				context.secrets.store('advent-of-vscode.loginCookie', cookie);
+
+				if (await context.secrets.get('advent-of-vscode.loginCookie') !== undefined) {
+					vscode.window.showInformationMessage('Successfully logged in to AoC');
+					vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
+				}
 			}
 			else {
-
+				// TODO: implement variant to save cookie unsafe --> warning asking for permission to do so
 			}
-
-			vscode.window.showInformationMessage('Successfully logged in to AoC');
-			vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
 		}
 		else {
 			vscode.window.showErrorMessage('Your cookie is not correct. [Try again](command:advent-of-vscode.login)');
