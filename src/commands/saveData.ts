@@ -1,16 +1,22 @@
 import * as vscode from 'vscode';
 
-export async function saveData(context: vscode.ExtensionContext, data: string): Promise<void> {
+export async function saveData(context: vscode.ExtensionContext, year: number, day: number, data: string): Promise<void> {
     // TODO: get data from data view
     // TODO: throw error if user not logged in
     // TODO: open file save dialog
 
-    //navigator.clipboard.writeText('data'); // not working, navigaot not available in Node?
-    vscode.commands.executeCommand(
-        'editor.action.clipboardCopyAction', // only copies selected editor content.....
-        'data' // set to data from data view
+    const savePath: vscode.Uri | undefined = await vscode.window.showSaveDialog(
+        {
+            defaultUri: vscode.Uri.file(`aoc-${year}-${day}.txt`),
+            saveLabel: 'Save AoC Data',
+            title: `AoC ${year} Day ${day}`,
+            filters: { 'Text': ['txt', 'aoc'] }
+        }
     );
 
-    // TODO: add path
-    vscode.window.showInformationMessage('Saved AoC Data: "path"');
+    if (savePath !== undefined) {
+        // TODO: save file
+
+        vscode.window.showInformationMessage(`Saved AoC Data: ${savePath}`);
+    }
 }

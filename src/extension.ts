@@ -55,13 +55,17 @@ export async function activate(context: vscode.ExtensionContext) {
 	const dataView: DataView = new DataView(context);
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.copyData',
-			() => copyData(context, dataView.getData())
+			async () => copyData(context, dataView.getData())
 		)
 	);
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.saveData',
-			() => saveData(context, dataView.getData())
-		)
+		vscode.commands.registerCommand('advent-of-vscode.saveData', async () => {
+			const selected = await vscode.commands.executeCommand('advent-of-vscode.selected');
+			if (selected !== undefined) {
+				const [year, day] = selected as Array<number>;
+				saveData(context, year, day, dataView.getData());
+			}
+		})
 	);
 }
 
