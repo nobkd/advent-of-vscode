@@ -16,7 +16,11 @@
     "onView:dataView",
     "onCommand:advent-of-vscode.login",
     "onCommand:advent-of-vscode.logout",
-    "onCommand:advent-of-vscode.loadCookie"
+    "onCommand:advent-of-vscode.loadCookie",
+    "onCommand:advent-of-vscode.openDescriptionPanel",
+    "onCommand:advent-of-vscode.select",
+    "onCommand:advent-of-vscode.saveData",
+    "onCommand:advent-of-vscode.copyData"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -80,7 +84,7 @@
           "group": "navigation@2"
         },
         {
-          "command": "advent-of-vscode.openDescriptionTab",
+          "command": "advent-of-vscode.openDescriptionPanel",
           "when": "view == descriptionView",
           "group": "navigation"
         }
@@ -128,8 +132,8 @@
         "title": "Load AoC Cookie from Secrets"
       },
       {
-        "command": "advent-of-vscode.openDescriptionTab",
-        "title": "Open AoC Description View to Tab",
+        "command": "advent-of-vscode.openDescriptionPanel",
+        "title": "Open AoC Description View to Panel",
         "icon": "$(preferences-open-settings)"
       }
     ]
