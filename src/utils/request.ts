@@ -16,7 +16,9 @@ export async function getDescription(year: number, day: number): Promise<string>
         const dom = new JSDOM(data);
         const dayDesc = dom.window.document.body.getElementsByClassName('day-desc');
 
-        /// loading all parts if logged in & part I completed
+        // TODO: cache data
+
+        /// loading all parts if logged in & part 1 completed
         let html = '';
         for (let i = 0; i < dayDesc.length; i++) {
             html += `<details open><summary>Part ${i + 1}</summary>${dayDesc[i].innerHTML}</details>`;
@@ -41,6 +43,8 @@ export async function getData(year: number, day: number): Promise<string> {
     });
 
     if (status === 200) {
+        // TODO: cache data
+
         return data;
     }
     return statusText;
@@ -61,7 +65,7 @@ export async function testCookie(cookie: string | undefined): Promise<boolean> {
         }
     ).then(
         () => loggedIn = true,
-        () => { }
+        () => loggedIn = false,
     );
 
     return loggedIn;

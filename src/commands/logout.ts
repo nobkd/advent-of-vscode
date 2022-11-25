@@ -1,13 +1,19 @@
 import * as vscode from 'vscode';
 
-export async function logout(context: vscode.ExtensionContext, args: Array<any> | undefined = undefined): Promise<void> {
+export async function logout(context: vscode.ExtensionContext): Promise<void> {
+	if (await context.secrets.get('advent-of-vscode.loginCookie') === undefined) {
+		return;
+	}
+
 	context.secrets.delete('advent-of-vscode.loginCookie');
+
+	// TODO: delete cache for data & later parts of description
 
 	if (await context.secrets.get('advent-of-vscode.loginCookie') === undefined) {
 		vscode.window.showInformationMessage('Successfully logged out of AoC');
 		vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', false);
 	}
 	else {
-		vscode.window.showErrorMessage('Failed to log out of AoC.');
+		vscode.window.showErrorMessage('Failed to log out of AoC. [Try again](command:advent-of-vscode.logout)');
 	}
 }

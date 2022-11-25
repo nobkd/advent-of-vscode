@@ -5,7 +5,7 @@ import { getDescription } from '../utils/request';
 
 // https://code.visualstudio.com/api/extension-guides/webview
 
-const placeholder: string = 'Nothing to see here :(';
+const placeholder: string = 'Please Select a Day in the "Select Day View"...';
 
 export class DescriptionView implements vscode.WebviewViewProvider {
     private _view?: vscode.WebviewView;
@@ -49,7 +49,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     }
 
     async descriptionPanel() {
-        const panel = vscode.window.createWebviewPanel(`descriptionPanel-${getNonce()}`,
+        const panel = vscode.window.createWebviewPanel(`descriptionPanel-${getNonce()}`, // TODO: get UNIQUE nonce
             this.title,
             vscode.ViewColumn.Active,
             { enableScripts: true, retainContextWhenHidden: true },
