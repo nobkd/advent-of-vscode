@@ -10,6 +10,9 @@ import { SelectDayView } from './views/selectDayView';
 import { testCookie } from './utils/request';
 
 export async function activate(context: vscode.ExtensionContext) {
+	// TODO: check if secrets are supported & run different unsafe? aporach to saving data
+	vscode.commands.executeCommand('setContext', 'advent-of-vscode.secretsSupported', true);
+
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.loadCookie', async (): Promise<string | undefined> => {
 			const cookie = await context.secrets.get('advent-of-vscode.loginCookie');
@@ -20,6 +23,9 @@ export async function activate(context: vscode.ExtensionContext) {
 			return loggedIn ? cookie : undefined;
 		})
 	);
+
+	/// Checks if cookie is stored and working, if so, sets user status to logged in
+	vscode.commands.executeCommand('advent-of-vscode.loadCookie');
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.login', (args) =>

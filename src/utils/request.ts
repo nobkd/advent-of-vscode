@@ -11,7 +11,7 @@ export async function getDescription(year: number, day: number): Promise<string>
         baseURL: base,
         responseType: 'document',
     });
-    
+
     if (status === 200) {
         const dom = new JSDOM(data);
         return dom.window.document.body.getElementsByClassName('day-desc')[0].innerHTML;
@@ -28,7 +28,7 @@ export async function getData(year: number, day: number): Promise<string> {
         responseType: 'text',
         transformResponse: [],
     });
-    
+
     if (status === 200) {
         return data;
     }
@@ -36,5 +36,22 @@ export async function getData(year: number, day: number): Promise<string> {
 }
 
 export async function testCookie(cookie: string | undefined): Promise<boolean> {
-    return false; // TODO: check if cookie works
+    if (cookie === undefined) {
+        return false;
+    }
+
+    let loggedIn: boolean = false;
+
+    await axios.get('/settings',
+        {
+            headers: { cookie: `session=${cookie};` },
+            baseURL: base,
+            maxRedirects: 0,
+        }
+    ).then(
+        () => loggedIn = true,
+        () => { }
+    );
+
+    return loggedIn;
 }
