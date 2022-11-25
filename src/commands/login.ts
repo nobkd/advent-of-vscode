@@ -8,7 +8,7 @@ export async function login(context: vscode.ExtensionContext, args: Array<any> |
 		return;
 	}
 
-	const secretsSupported = await context.globalState.get('advent-of-vscode.secretsSupported');
+	const secretsSupported: boolean = context.globalState.get('advent-of-vscode.secretsSupported', true);
 
 	const cookie: string | undefined = await vscode.window.showInputBox({
 		title: 'Login to AoC',
