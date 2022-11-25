@@ -2,9 +2,9 @@ import * as vscode from 'vscode';
 
 import { testCookie } from '../utils/request';
 
-export async function login(context: vscode.ExtensionContext, args: Array<any> | undefined = undefined): Promise<void> {
+export async function login(context: vscode.ExtensionContext): Promise<void> {
 	if (context.globalState.get('advent-of-vscode.loggedIn', false)) {
-		vscode.window.showErrorMessage('Already logged in. Please [log out](command:advent-of-vscode.logout) to use another account.');
+		vscode.window.showErrorMessage('You are currently logged in. Please [log out](command:advent-of-vscode.logout) to use another account.');
 		return;
 	}
 

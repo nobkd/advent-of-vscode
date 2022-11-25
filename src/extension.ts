@@ -16,8 +16,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.loadCookie', async (): Promise<string | undefined> => {
-			const cookie = await context.secrets.get('advent-of-vscode.loginCookie');
-			const loggedIn = await testCookie(cookie);
+			const cookie: string | undefined = await context.secrets.get('advent-of-vscode.loginCookie');
+			const loggedIn: boolean = await testCookie(cookie);
 
 			vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', loggedIn);
 
@@ -41,7 +41,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	new SelectDayView(context);
 
-	const descriptionView = new DescriptionView(context);
+	const descriptionView: DescriptionView = new DescriptionView(context);
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.select',
 			(year: number, day: number) => descriptionView.selectDay(year, day))
@@ -52,7 +52,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
-	const dataView = new DataView(context);
+	const dataView: DataView = new DataView(context);
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.copyData',
 			() => copyData(context, dataView.getData())
