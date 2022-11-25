@@ -53,8 +53,8 @@ export async function activate(context: vscode.ExtensionContext) {
 			(year: number, day: number) => descriptionView.selectDay(year, day))
 	);
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.openDescriptionTab',
-			() => descriptionView.descriptionTab()
+		vscode.commands.registerCommand('advent-of-vscode.openDescriptionPanel',
+			() => descriptionView.descriptionPanel()
 		)
 	);
 

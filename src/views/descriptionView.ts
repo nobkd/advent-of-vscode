@@ -9,6 +9,9 @@ const placeholder: string = 'Nothing to see here :(';
 
 export class DescriptionView implements vscode.WebviewViewProvider {
     private _view?: vscode.WebviewView;
+    private _panels: vscode.WebviewPanel[] = [];
+
+    private currentHtml?: string;
 
     constructor(private context: vscode.ExtensionContext) {
         context.subscriptions.push(
@@ -22,12 +25,12 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext<unknown>, token: vscode.CancellationToken): void | Thenable<void> {
         this._view = webviewView;
 
-        webviewView.webview.options = { enableScripts: true };
+        this._view.webview.options = { enableScripts: true };
 
-        const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'main.js'));
+        const scriptUri = this._view.webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'main.js'));
         const nonce = getNonce();
 
-        webviewView.webview.html = `
+        this._view.webview.html = `
         <!DOCTYPE html>
         <html lang="en">
             <head>
@@ -41,20 +44,44 @@ export class DescriptionView implements vscode.WebviewViewProvider {
             </body>
         </html>
         `;
-
     }
 
-    async descriptionTab() {
-        // TODO: implement webview tab
-        //this._view!.webview.html;
+    async descriptionPanel() {
+        const panel = vscode.window.createWebviewPanel(`descriptionPanel-${getNonce()}`,
+            'AoC Description',
+            vscode.ViewColumn.Active,
+            { enableScripts: true },
+        );
+
+        this._panels.push(panel);
+        panel.onDidDispose(() => this._panels.splice(this._panels.indexOf(panel), 1));
+
+        panel.webview.html = this._view!.webview.html;
+        panel.webview.postMessage(this.currentHtml || placeholder);
+
+        return panel;
     }
 
     async selectDay(year: number, day: number): Promise<void> {
         // TODO: get data from aoc / cache
-        this._view!.description = `AoC ${year} Day ${day}`;
-        this._view!.webview.postMessage('Please wait...');
+        const info = `AoC ${year} Day ${day}`;
+        const load = 'Please wait...';
+
+        this._view!.description = info;
+        this._view?.webview.postMessage(load);
+
+        this._panels.forEach(async element => {
+            element.title = info;
+            element.webview.postMessage(load);
+        });
 
         const data = await getDescription(year, day);
-        this._view!.webview.postMessage(data);
+
+        this._view?.webview.postMessage(data);
+        this._panels.forEach(async element => {
+            element.webview.postMessage(data);
+        });
+
+        this.currentHtml = data;
     }
 }
