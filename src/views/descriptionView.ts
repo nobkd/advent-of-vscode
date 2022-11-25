@@ -11,6 +11,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     private _view?: vscode.WebviewView;
     private _panels: vscode.WebviewPanel[] = [];
 
+    private title: string = 'AoC Description';
     private currentHtml?: string;
 
     constructor(private context: vscode.ExtensionContext) {
@@ -26,6 +27,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         this._view = webviewView;
 
         this._view.webview.options = { enableScripts: true };
+        this._view.description = this.title;
 
         const scriptUri = this._view.webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'main.js'));
         const nonce = getNonce();
@@ -48,9 +50,9 @@ export class DescriptionView implements vscode.WebviewViewProvider {
 
     async descriptionPanel() {
         const panel = vscode.window.createWebviewPanel(`descriptionPanel-${getNonce()}`,
-            'AoC Description',
+            this.title,
             vscode.ViewColumn.Active,
-            { enableScripts: true },
+            { enableScripts: true, retainContextWhenHidden: true },
         );
 
         this._panels.push(panel);
@@ -64,14 +66,14 @@ export class DescriptionView implements vscode.WebviewViewProvider {
 
     async selectDay(year: number, day: number): Promise<void> {
         // TODO: get data from aoc / cache
-        const info = `AoC ${year} Day ${day}`;
+        this.title = `AoC ${year} Day ${day}`;
         const load = 'Please wait...';
 
-        this._view!.description = info;
+        this._view!.description = this.title;
         this._view?.webview.postMessage(load);
 
         this._panels.forEach(async element => {
-            element.title = info;
+            element.title = this.title;
             element.webview.postMessage(load);
         });
 
