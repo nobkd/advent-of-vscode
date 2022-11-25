@@ -3,6 +3,11 @@ import * as vscode from 'vscode';
 import { testCookie } from '../utils/request';
 
 export async function login(context: vscode.ExtensionContext, args: Array<any> | undefined = undefined): Promise<void> {
+	if (context.globalState.get('advent-of-vscode.loggedIn', false)) {
+		vscode.window.showErrorMessage('Already logged in. Please [log out](command:advent-of-vscode.logout) to use another account.');
+		return;
+	}
+
 	const secretsSupported = await context.globalState.get('advent-of-vscode.secretsSupported');
 
 	const cookie: string | undefined = await vscode.window.showInputBox({
