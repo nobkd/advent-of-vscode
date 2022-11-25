@@ -1,8 +1,7 @@
-import * as vscode from 'vscode';
-
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 
+import { getCookieObject } from './helper';
 
 const base: string = 'https://adventofcode.com';
 
@@ -45,14 +44,6 @@ export async function getData(year: number, day: number): Promise<string> {
         return data;
     }
     return statusText;
-}
-
-async function getCookieObject(): Promise<object> {
-    const cookie: string | undefined = await vscode.commands.executeCommand('advent-of-vscode.loadCookie');
-    if (cookie !== undefined) {
-        return { headers: { cookie: `session=${cookie};` } };
-    }
-    return {};
 }
 
 export async function testCookie(cookie: string | undefined): Promise<boolean> {
