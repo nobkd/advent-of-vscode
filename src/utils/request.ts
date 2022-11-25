@@ -36,7 +36,7 @@ export async function getData(year: number, day: number): Promise<string> {
 }
 
 export async function testCookie(cookie: string | undefined): Promise<boolean> {
-    if (cookie === undefined) {
+    if (cookie === undefined || cookie.length !== 128 || cookie.match(/\W+/)) {
         return false;
     }
 
