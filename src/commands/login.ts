@@ -8,8 +8,6 @@ export async function login(context: vscode.ExtensionContext, args: Array<any> |
 		return;
 	}
 
-	const secretsSupported: boolean = context.globalState.get('advent-of-vscode.secretsSupported', true);
-
 	const cookie: string | undefined = await vscode.window.showInputBox({
 		title: 'Login to AoC',
 		placeHolder: 'Paste your AoC "session" cookie from your browser here',
@@ -20,16 +18,11 @@ export async function login(context: vscode.ExtensionContext, args: Array<any> |
 
 	if (cookie !== undefined) {
 		if (await testCookie(cookie)) {
-			if (secretsSupported) {
-				context.secrets.store('advent-of-vscode.loginCookie', cookie);
+			context.secrets.store('advent-of-vscode.loginCookie', cookie);
 
-				if (await context.secrets.get('advent-of-vscode.loginCookie') !== undefined) {
-					vscode.window.showInformationMessage('Successfully logged in to AoC');
-					vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
-				}
-			}
-			else {
-				// TODO: implement variant to save cookie unsafe --> warning asking for permission to do so
+			if (await context.secrets.get('advent-of-vscode.loginCookie') !== undefined) {
+				vscode.window.showInformationMessage('Successfully logged in to AoC');
+				vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
 			}
 		}
 		else {
