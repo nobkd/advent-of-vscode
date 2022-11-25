@@ -3,10 +3,11 @@ import * as vscode from 'vscode';
 import { login } from './commands/login';
 import { logout } from './commands/logout';
 import { copyData } from './commands/copyData';
+import { saveData } from './commands/saveData';
 
-import { DataView } from './views/dataView';
-import { DescriptionView } from './views/descriptionView';
 import { SelectDayView } from './views/selectDayView';
+import { DescriptionView } from './views/descriptionView';
+import { DataView } from './views/dataView';
 
 import { testCookie } from './utils/request';
 
@@ -28,21 +29,17 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.executeCommand('advent-of-vscode.loadCookie');
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.login', (args) =>
-			login(context, args)
+		vscode.commands.registerCommand('advent-of-vscode.login',
+			() => login(context)
 		)
 	);
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.logout', (args) =>
-			logout(context, args)
+		vscode.commands.registerCommand('advent-of-vscode.logout',
+			() => logout(context)
 		)
 	);
 
-	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.copyData', (args) =>
-			copyData(context, args)
-		)
-	);
+	new SelectDayView(context);
 
 	const descriptionView = new DescriptionView(context);
 	context.subscriptions.push(
@@ -55,10 +52,17 @@ export async function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
-
-	new SelectDayView(context);
-
-	new DataView(context);
+	const dataView = new DataView(context);
+	context.subscriptions.push(
+		vscode.commands.registerCommand('advent-of-vscode.copyData',
+			() => copyData(context, dataView.getData())
+		)
+	);
+	context.subscriptions.push(
+		vscode.commands.registerCommand('advent-of-vscode.saveData',
+			() => saveData(context, dataView.getData())
+		)
+	);
 }
 
 export function deactivate() { }

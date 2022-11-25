@@ -9,4 +9,8 @@ export class DataView {
 	constructor(context: vscode.ExtensionContext) {
 		// TODO: register
 	}
+
+	getData(): string {
+		return '';
+	}
 }

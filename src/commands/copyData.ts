@@ -1,13 +1,7 @@
 import * as vscode from 'vscode';
 
-export async function copyData(context: vscode.ExtensionContext, args: Array<number> | undefined): Promise<void> {
-    if (args === undefined || args === null || args?.length < 2) {
-        vscode.window.showErrorMessage('Command: "advent-of-vscode.copyData" failed due to missing arguments');
-        return;
-    }
-    const [year, day]: number[] = args;
-
-    // TODO: get data from data view / cache / website / maybe without args?
+export async function copyData(context: vscode.ExtensionContext, data: string): Promise<void> {
+    // TODO: get data from data view
     // TODO: throw error if user not logged in
     // TODO: push data to clipboard
 
