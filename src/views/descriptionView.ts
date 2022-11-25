@@ -44,6 +44,11 @@ export class DescriptionView implements vscode.WebviewViewProvider {
 
     }
 
+    async descriptionTab() {
+        // TODO: implement webview tab
+        //this._view!.webview.html;
+    }
+
     async selectDay(year: number, day: number): Promise<void> {
         // TODO: get data from aoc / cache
         this._view!.description = `AoC ${year} Day ${day}`;
