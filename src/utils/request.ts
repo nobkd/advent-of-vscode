@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 
-import { getCookieObject } from './helper';
+import { getCookieObject, CookieObject } from './helper';
 
 const base: string = 'https://adventofcode.com';
 
@@ -30,8 +30,8 @@ export async function fetchDescription(year: number, day: number): Promise<strin
 
 
 export async function fetchData(year: number, day: number): Promise<string> {
-    const cookieObject: object = await getCookieObject();
-    if (Object.keys(cookieObject).length < 1) {
+    const cookieObject: CookieObject = await getCookieObject();
+    if (cookieObject.headers === undefined) {
         return 'You are not logged in. [Log in](command:advent-of-vscode.login)';
     }
 

@@ -25,6 +25,10 @@ export async function activate(context: vscode.ExtensionContext) {
 		})
 	);
 
+	// context.secrets.onDidChange((e) => e.key === undefined ? context.globalState.update('advent-') )
+	// TODO: on cookie save state change: update loginstatus
+	// TODO: on login status change: update data & description view
+
 	/// Checks if cookie is stored and working, if so, sets user status to logged in
 	vscode.commands.executeCommand('advent-of-vscode.loadCookie');
 
@@ -33,6 +37,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			() => login(context)
 		)
 	);
+
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.logout',
 			() => logout(context)
@@ -40,24 +45,32 @@ export async function activate(context: vscode.ExtensionContext) {
 	);
 
 	new SelectDayView(context);
-
 	const descriptionView: DescriptionView = new DescriptionView(context);
+	const dataView: DataView = new DataView(context);
+
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.select',
-			(year: number, day: number) => descriptionView.selectDay(year, day))
+			(year: number, day: number) => {
+				descriptionView.selectDay(year, day);
+				dataView.selectDay(year, day);
+			})
 	);
+
+	/// Description
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.openDescriptionPanel',
 			() => descriptionView.descriptionPanel()
 		)
 	);
 
-	const dataView: DataView = new DataView(context);
+
+	// Data
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.copyData',
-			async () => copyData(context, dataView.getData())
+			() => copyData(context, dataView.getData())
 		)
 	);
+
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.saveData', async () => {
 			const data = dataView.getData();

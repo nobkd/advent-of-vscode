@@ -9,7 +9,9 @@ export function getNonce(): string {
     return text;
 }
 
-export async function getCookieObject(): Promise<object> {
+export type CookieObject = object & {headers?: {cookie: string}};
+
+export async function getCookieObject(): Promise<CookieObject> {
     const cookie: string | undefined = await vscode.commands.executeCommand('advent-of-vscode.loadCookie');
     if (cookie !== undefined) {
         return { headers: { cookie: `session=${cookie};` } };

@@ -20,9 +20,15 @@ export async function login(context: vscode.ExtensionContext): Promise<void> {
 		if (await testCookie(cookie)) {
 			context.secrets.store('advent-of-vscode.loginCookie', cookie);
 
+			/// registers change
+			await context.secrets.get('advent-of-vscode.loginCookie');
+
 			if (await context.secrets.get('advent-of-vscode.loginCookie') !== undefined) {
 				vscode.window.showInformationMessage('Successfully logged in to AoC');
 				vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
+			}
+			else {
+				vscode.window.showErrorMessage('Failed to store you cookie. You might have another error message explaining this. In case you could fix this error please try restarting the app and try logging in again');
 			}
 		}
 		else {

@@ -8,6 +8,10 @@ export async function logout(context: vscode.ExtensionContext): Promise<void> {
 	context.secrets.delete('advent-of-vscode.loginCookie');
 
 	// TODO: delete cache for data & later parts of description
+	// update decription & data view
+
+	/// registers change
+	await context.secrets.get('advent-of-vscode.loginCookie');
 
 	if (await context.secrets.get('advent-of-vscode.loginCookie') === undefined) {
 		vscode.window.showInformationMessage('Successfully logged out of AoC');

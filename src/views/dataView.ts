@@ -4,9 +4,6 @@ import { fetchData } from '../utils/request';
 
 // https://code.visualstudio.com/api/extension-guides/virtual-documents
 
-// TODO: add login request when not logged in with aoc account / request login cookie?
-// TODO: add save as file & copy buttons
-
 export class DataView {
 	private _data?: string;
 
@@ -17,20 +14,21 @@ export class DataView {
 		// TODO: register
 	}
 
-	async displayData(): Promise<void> {
-		this._data = undefined;
+	async selectDay(year: number, day: number): Promise<void> {
+		this._data = await fetchData(year, day);
+		this.year = year;
+		this.day = day;
 
-		[this.year, this.day] = this.context.globalState.get('advent-of-vscode.selected') as Array<number> | undefined;
-		
-		if (this.year !== undefined && this.day !== undefined) {
-			this._data = await fetchData(this.year, this.day);
-		}
+		// TODO: update view
 	}
 
-
 	getData(): string | undefined {
-		if (this._data === undefined) {
-			vscode.window.showErrorMessage('Failed to get AoC data. Please [log in](command:advent-of-vscode.login) first.');
+		const loggedIn: boolean | undefined = this.context.globalState.get('advent-of-vscode.loggedIn');
+		if (!loggedIn) {
+			vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
+		}
+		else if (this.year === undefined || this.day === undefined) {
+			vscode.window.showWarningMessage('Please select an AoC day first');
 		}
 
 		return this._data;
