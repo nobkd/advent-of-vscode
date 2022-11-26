@@ -12,6 +12,7 @@ export class DataView {
 
 	constructor(private context: vscode.ExtensionContext) {
 		// TODO: register
+		// TODO: set view
 	}
 
 	async selectDay(year: number, day: number): Promise<void> {
