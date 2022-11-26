@@ -24,8 +24,9 @@ export class DataView {
 	}
 
 	async getData(): Promise<[number | undefined, number | undefined, string | undefined]> {
-		const loggedIn: boolean | undefined = await this.context.globalState.get('advent-of-vscode.loggedIn');
-		if (loggedIn === undefined || !loggedIn) {
+		// TODO: use global state instead
+		const loggedIn: string | undefined = await vscode.commands.executeCommand('advent-of-vscode.loadCookie');
+		if (loggedIn === undefined) {
 			vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
 		}
 		else if (this.year === undefined || this.day === undefined) {

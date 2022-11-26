@@ -16,6 +16,7 @@ export async function saveData(context: vscode.ExtensionContext, year: number | 
     );
 
     if (savePath !== undefined) {
+        // TODO: check if file really is written
         vscode.workspace.fs.writeFile(savePath, new TextEncoder().encode(data));
         vscode.window.showInformationMessage(`Saved [AoC Data](${savePath})`);
     }
