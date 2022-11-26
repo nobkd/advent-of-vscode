@@ -1,3 +1,4 @@
+import { TextEncoder } from 'util';
 import * as vscode from 'vscode';
 
 export async function saveData(context: vscode.ExtensionContext, year: number | undefined, day: number | undefined, data: string | undefined): Promise<void> {

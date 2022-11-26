@@ -67,13 +67,13 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Data
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.copyData',
-			() => copyData(context, ...dataView.getData())
+			async () => copyData(context, ...await dataView.getData())
 		)
 	);
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.saveData',
-			async () => saveData(context, ...dataView.getData())
+			async () => saveData(context, ...await dataView.getData())
 		)
 	);
 }

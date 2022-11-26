@@ -23,9 +23,9 @@ export class DataView {
 		// TODO: update view
 	}
 
-	getData(): [number | undefined, number | undefined, string | undefined] {
-		const loggedIn: boolean | undefined = this.context.globalState.get('advent-of-vscode.loggedIn');
-		if (!loggedIn) {
+	async getData(): Promise<[number | undefined, number | undefined, string | undefined]> {
+		const loggedIn: boolean | undefined = await this.context.globalState.get('advent-of-vscode.loggedIn');
+		if (loggedIn === undefined || !loggedIn) {
 			vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
 		}
 		else if (this.year === undefined || this.day === undefined) {

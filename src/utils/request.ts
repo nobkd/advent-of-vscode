@@ -29,13 +29,13 @@ export async function fetchDescription(year: number, day: number): Promise<strin
 }
 
 
-export async function fetchData(year: number, day: number): Promise<string> {
+export async function fetchData(year: number, day: number): Promise<string | undefined> {
     const cookieObject: CookieObject = await getCookieObject();
     if (cookieObject.headers === undefined) {
         return 'You are not logged in. [Log in](command:advent-of-vscode.login)';
     }
 
-    const { data, status, statusText } = await axios.get(`/${year}/day/${day}/input`, {
+    const { data, status } = await axios.get(`/${year}/day/${day}/input`, {
         baseURL: base,
         responseType: 'text',
         transformResponse: [],
@@ -47,7 +47,7 @@ export async function fetchData(year: number, day: number): Promise<string> {
 
         return data;
     }
-    return statusText;
+    return undefined;
 }
 
 export async function testCookie(cookie: string | undefined): Promise<boolean> {
