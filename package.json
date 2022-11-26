@@ -2,6 +2,15 @@
   "name": "advent-of-vscode",
   "displayName": "Advent of VSCode",
   "description": "",
+  "private": true,
+  "icon": "res/icon.png",
+  "license": "Blue Oak Model License",
+  "repository": {
+    "url": "https://github.com/nobkd/advent-of-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/nobkd/advent-of-vscode/issues/new?labels=bug"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.73.0"
