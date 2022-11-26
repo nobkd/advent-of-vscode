@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { getNonce } from '../utils/helper';
-import { getDescription } from '../utils/request';
+import { fetchDescription } from '../utils/request';
 
 // https://code.visualstudio.com/api/extension-guides/webview
 
@@ -78,7 +78,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
             panel.webview.postMessage(loading);
         });
 
-        this.description = await getDescription(year, day);
+        this.description = await fetchDescription(year, day);
 
         this._view?.webview.postMessage(this.description);
         this._panels.forEach(async element => {

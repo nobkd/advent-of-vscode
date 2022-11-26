@@ -5,7 +5,7 @@ import { getCookieObject } from './helper';
 
 const base: string = 'https://adventofcode.com';
 
-export async function getDescription(year: number, day: number): Promise<string> {
+export async function fetchDescription(year: number, day: number): Promise<string> {
     const { data, status, statusText } = await axios.get(`/${year}/day/${day}`, {
         baseURL: base,
         responseType: 'document',
@@ -29,7 +29,7 @@ export async function getDescription(year: number, day: number): Promise<string>
 }
 
 
-export async function getData(year: number, day: number): Promise<string> {
+export async function fetchData(year: number, day: number): Promise<string> {
     const cookieObject: object = await getCookieObject();
     if (Object.keys(cookieObject).length < 1) {
         return 'You are not logged in. [Log in](command:advent-of-vscode.login)';

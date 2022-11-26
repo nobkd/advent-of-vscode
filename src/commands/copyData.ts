@@ -1,8 +1,10 @@
 import * as vscode from 'vscode';
 
-export async function copyData(context: vscode.ExtensionContext, data: string): Promise<void> {
-    // TODO: get data from data view
-    // TODO: throw error if user not logged in
+export async function copyData(context: vscode.ExtensionContext, data: string | undefined): Promise<void> {
+    if (data === undefined) {
+        return;
+    }
+
     // TODO: push data to clipboard
 
     //navigator.clipboard.writeText('data'); // not working, navigaot not available in Node?
@@ -12,4 +14,5 @@ export async function copyData(context: vscode.ExtensionContext, data: string): 
     );
 
     vscode.window.showInformationMessage('Copied AoC Data to Clipboard');
+
 }

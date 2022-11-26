@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 
-export async function saveData(context: vscode.ExtensionContext, year: number, day: number, data: string): Promise<void> {
-    // TODO: get data from data view
-    // TODO: throw error if user not logged in
-    // TODO: open file save dialog
+export async function saveData(context: vscode.ExtensionContext, year: number | undefined, day: number | undefined, data: string | undefined): Promise<void> {
+    if (year === undefined || day === undefined || data === undefined) {
+        return;
+    }
 
     const savePath: vscode.Uri | undefined = await vscode.window.showSaveDialog(
         {
@@ -15,8 +15,7 @@ export async function saveData(context: vscode.ExtensionContext, year: number, d
     );
 
     if (savePath !== undefined) {
-        // TODO: save file
-
+        vscode.workspace.fs.writeFile(savePath, new TextEncoder().encode(data));
         vscode.window.showInformationMessage(`Saved AoC Data: ${savePath}`);
     }
 }

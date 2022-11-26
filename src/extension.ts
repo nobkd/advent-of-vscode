@@ -60,10 +60,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	);
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.saveData', async () => {
-			const selected = await vscode.commands.executeCommand('advent-of-vscode.selected');
-			if (selected !== undefined) {
-				const [year, day] = selected as Array<number>;
-				saveData(context, year, day, dataView.getData());
+			const data = dataView.getData();
+
+			if (data !== undefined) {
+				saveData(context, dataView.getYear(), dataView.getDay(), data);
 			}
 		})
 	);
