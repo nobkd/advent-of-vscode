@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-export async function copyData(context: vscode.ExtensionContext, data: string | undefined): Promise<void> {
+export async function copyData(context: vscode.ExtensionContext, year: number| undefined, day: number | undefined, data: string | undefined): Promise<void> {
     if (data === undefined) {
         return;
     }

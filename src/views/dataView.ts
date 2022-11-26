@@ -22,7 +22,7 @@ export class DataView {
 		// TODO: update view
 	}
 
-	getData(): string | undefined {
+	getData(): [number | undefined, number | undefined, string | undefined] {
 		const loggedIn: boolean | undefined = this.context.globalState.get('advent-of-vscode.loggedIn');
 		if (!loggedIn) {
 			vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
@@ -31,14 +31,6 @@ export class DataView {
 			vscode.window.showWarningMessage('Please select an AoC day first');
 		}
 
-		return this._data;
-	}
-
-	getYear(): number | undefined {
-		return this.year;
-	}
-
-	getDay(): number | undefined {
-		return this.day;
+		return [this.year, this.day, this._data];
 	}
 }

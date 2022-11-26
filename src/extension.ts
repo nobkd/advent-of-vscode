@@ -67,18 +67,14 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Data
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.copyData',
-			() => copyData(context, dataView.getData())
+			() => copyData(context, ...dataView.getData())
 		)
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.saveData', async () => {
-			const data = dataView.getData();
-
-			if (data !== undefined) {
-				saveData(context, dataView.getYear(), dataView.getDay(), data);
-			}
-		})
+		vscode.commands.registerCommand('advent-of-vscode.saveData',
+			async () => saveData(context, ...dataView.getData())
+		)
 	);
 }
 
