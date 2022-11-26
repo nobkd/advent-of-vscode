@@ -3,6 +3,7 @@
   "displayName": "Advent of VSCode",
   "description": "",
   "private": true,
+  "publisher": "nobkd",
   "icon": "res/icon.png",
   "license": "Blue Oak Model License",
   "repository": {
