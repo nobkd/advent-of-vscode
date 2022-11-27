@@ -24,7 +24,7 @@ export function getDefaultHtml(defaultData: any) {
 
     return `
         <!DOCTYPE html>
-        <html lang="en">
+        <html lang="en" style="scrollbar-gutter: stable;">
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -6,6 +6,8 @@ import { getCookieObject, CookieObject } from './helper';
 const base: string = 'https://adventofcode.com';
 
 export async function fetchDescription(year: number, day: number): Promise<string> {
+    // TODO: load cached data
+
     const { data, status, statusText } = await axios.get(`/${year}/day/${day}`, {
         baseURL: base,
         responseType: 'document',
@@ -21,7 +23,9 @@ export async function fetchDescription(year: number, day: number): Promise<strin
         /// loading all parts if logged in & part 1 completed
         let html = '';
         for (let i = 0; i < dayDescriptions.length; i++) {
-            html += `<details open><summary>Part ${i + 1}</summary>${dayDescriptions[i].outerHTML}</details>`;
+            const dayDescription = dayDescriptions[i];
+            const title = dayDescription.getElementsByTagName('h2')[0];
+            html += `<details open><summary><b>${title.innerHTML.replace(/\s?---\s?(Day \d+:)?/g, '')}</b></summary>${dayDescription.removeChild(title).innerHTML}</details>`;
         }
         return html;
     }
