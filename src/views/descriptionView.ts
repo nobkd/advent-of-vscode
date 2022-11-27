@@ -27,7 +27,6 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         this._view.webview.options = { enableScripts: true };
         this._view.description = this.title;
 
-        const scriptUri: vscode.Uri = this._view.webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'res', 'main.js'));
         const nonce: string = getNonce();
 
         this._view.webview.html = `
@@ -40,7 +39,9 @@ export class DescriptionView implements vscode.WebviewViewProvider {
             </head>
             <body>
                 <div id="view">${this.description}</div>
-                <script nonce="${nonce}" src="${scriptUri}"></script>
+                <script nonce="${nonce}">
+                    window.addEventListener('message', event => document.getElementById('view').innerHTML = event.data);
+                </script>
             </body>
         </html>
         `;
