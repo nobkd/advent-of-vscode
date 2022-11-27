@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { getNonce } from '../utils/helper';
+import { getDefaultHtml, getNonce } from '../utils/helper';
 import { fetchDescription } from '../utils/request';
 
 // https://code.visualstudio.com/api/extension-guides/webview
@@ -13,7 +13,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     private description: string = 'Please Select a Day';
 
     constructor(private context: vscode.ExtensionContext) {
-        context.subscriptions.push(
+        this.context.subscriptions.push(
             vscode.window.registerWebviewViewProvider('descriptionView',
                 this,
                 { webviewOptions: { retainContextWhenHidden: true } },
@@ -27,24 +27,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         this._view.webview.options = { enableScripts: true };
         this._view.description = this.title;
 
-        const nonce: string = getNonce();
-
-        this._view.webview.html = `
-        <!DOCTYPE html>
-        <html lang="en">
-            <head>
-                <meta charset="utf-8"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}';"/>
-            </head>
-            <body>
-                <div id="view">${this.description}</div>
-                <script nonce="${nonce}">
-                    window.addEventListener('message', event => document.getElementById('view').innerHTML = event.data);
-                </script>
-            </body>
-        </html>
-        `;
+        this._view.webview.html = getDefaultHtml(this.description);
     }
 
     async descriptionPanel(): Promise<vscode.WebviewPanel> {
@@ -69,21 +52,21 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         // TODO: get data from aoc / cache
 
         this.title = `AoC ${year} Day ${day}`;
-        const loading = 'Please wait...'; // TODO: replace with animation (maybe AoVSC icon rotating)
+        this.description = 'Please wait...'; // TODO: replace with animation (maybe AoVSC icon rotating)
 
         this._view!.description = this.title;
-        this._view?.webview.postMessage(loading);
+        this._view?.webview.postMessage(this.description);
 
         this._panels.forEach(async panel => {
             panel.title = this.title;
-            panel.webview.postMessage(loading);
+            panel.webview.postMessage(this.description);
         });
 
         this.description = await fetchDescription(year, day);
 
         this._view?.webview.postMessage(this.description);
-        this._panels.forEach(async element => {
-            element.webview.postMessage(this.description);
+        this._panels.forEach(async panel => {
+            panel.webview.postMessage(this.description);
         });
     }
 }

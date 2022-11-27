@@ -18,3 +18,24 @@ export async function getCookieObject(): Promise<CookieObject> {
     }
     return {};
 }
+
+export function getDefaultHtml(defaultData: any) {
+    const nonce = getNonce();
+
+    return `
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}';"/>
+            </head>
+            <body>
+                <div id="view">${defaultData}</div>
+                <script nonce="${nonce}">
+                    window.addEventListener('message', event => document.getElementById('view').innerHTML = event.data);
+                </script>
+            </body>
+        </html>
+    `;
+}

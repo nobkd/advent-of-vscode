@@ -70,7 +70,8 @@
         {
           "id": "dataView",
           "name": "Data",
-          "contextualTitle": "Get Data for Selected Day"
+          "type": "webview",
+          "contextualTitle": "View Data for Selected Day"
         }
       ]
     },
