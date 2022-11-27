@@ -6,9 +6,12 @@ export async function saveData(context: vscode.ExtensionContext, year: number | 
         return;
     }
 
+    const filename = `aoc-${year}-${day}.txt`;
+    const workspace = vscode.workspace.workspaceFolders;
+
     const savePath: vscode.Uri | undefined = await vscode.window.showSaveDialog(
         {
-            defaultUri: vscode.Uri.file(`aoc-${year}-${day}.txt`),
+            defaultUri: vscode.Uri.file(`${workspace !== undefined ? workspace[0].uri.path : process.env.HOME}/${filename}`),
             saveLabel: 'Save AoC Data',
             title: `AoC ${year} Day ${day}`,
             // eslint-disable-next-line @typescript-eslint/naming-convention
