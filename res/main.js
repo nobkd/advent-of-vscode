@@ -1,9 +1,5 @@
 (function () {
-    let view = document.getElementById('view') || document.body.appendChild(document.createElement('div'));
+    const view = document.getElementById('view') || document.body.appendChild(document.createElement('div'));
     view.id = 'view';
-
-    window.addEventListener('message', event => {
-        view.innerHTML = event.data;
-    });
-
+    window.addEventListener('message', event => view.innerHTML = event.data);
 }());

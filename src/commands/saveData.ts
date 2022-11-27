@@ -11,6 +11,7 @@ export async function saveData(context: vscode.ExtensionContext, year: number | 
             defaultUri: vscode.Uri.file(`aoc-${year}-${day}.txt`),
             saveLabel: 'Save AoC Data',
             title: `AoC ${year} Day ${day}`,
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             filters: { 'Text': ['txt', 'aoc'] }
         }
     );
