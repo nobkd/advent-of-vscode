@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { JSDOM } from 'jsdom';
+import { parse } from 'node-html-parser';
 
 import { getCookieObject, CookieObject } from './helper';
 
@@ -13,15 +13,15 @@ export async function fetchDescription(year: number, day: number): Promise<strin
     });
 
     if (status === 200) {
-        const dom = new JSDOM(data);
-        const dayDesc = dom.window.document.body.getElementsByClassName('day-desc');
+        const dom = parse(data);
+        const dayDescriptions = dom.querySelectorAll('.day-desc');
 
         // TODO: cache data
 
         /// loading all parts if logged in & part 1 completed
         let html = '';
-        for (let i = 0; i < dayDesc.length; i++) {
-            html += `<details open><summary>Part ${i + 1}</summary>${dayDesc[i].innerHTML}</details>`;
+        for (let i = 0; i < dayDescriptions.length; i++) {
+            html += `<details open><summary>Part ${i + 1}</summary>${dayDescriptions[i].outerHTML}</details>`;
         }
         return html;
     }
