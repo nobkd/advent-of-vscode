@@ -2,23 +2,33 @@
   "name": "advent-of-vscode",
   "displayName": "Advent of VSCode",
   "description": "",
-  "private": true,
+  "version": "0.0.1",
+  "author": {
+    "name": "nobkd",
+    "url": "https://github.com/nobkd"
+  },
   "publisher": "nobkd",
+  "license": "BlueOak-1.0.0",
   "icon": "res/icon.png",
-  "license": "Blue Oak Model License",
+  "homepage": "https://github.com/nobkd/advent-of-vscode#readme",
   "repository": {
-    "url": "https://github.com/nobkd/advent-of-vscode"
+    "type": "git",
+    "url": "https://github.com/nobkd/advent-of-vscode.git"
   },
   "bugs": {
-    "url": "https://github.com/nobkd/advent-of-vscode/issues/new?labels=bug"
+    "url": "https://github.com/nobkd/advent-of-vscode/issues"
   },
-  "version": "0.0.1",
   "engines": {
     "vscode": "^1.73.0"
   },
   "categories": [
     "Other"
   ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "activationEvents": [
     "onView:aoc",
     "onView:selectDayView",
