@@ -75,13 +75,6 @@
         }
       ]
     },
-    "viewsWelcome": [
-      {
-        "view": "dataView",
-        "contents": "Please log in using your AoC cookie\n[Open AoC Website](https://adventofcode.com)\n[Login](command:advent-of-vscode.login)",
-        "when": "!advent-of-vscode.loggedIn"
-      }
-    ],
     "menus": {
       "view/title": [
         {

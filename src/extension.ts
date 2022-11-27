@@ -25,7 +25,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		})
 	);
 
-	// context.secrets.onDidChange((e) => e.key === undefined ? context.globalState.update('advent-') )
+	// context.secrets.onDidChange((e) => e.key === undefined ? context.globalState.update('advent-') ) // not working properly....
 	// TODO: on cookie save state change: update loginstatus
 	// TODO: on login status change: update data & description view
 

@@ -28,7 +28,7 @@ export async function login(context: vscode.ExtensionContext): Promise<void> {
 				vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
 			}
 			else {
-				vscode.window.showErrorMessage('Failed to store you cookie. You might have another error message explaining this. In case you could fix this error please try restarting the app and try logging in again');
+				vscode.window.showErrorMessage('Failed to store you cookie. You might have another error message explaining this. In case you could fix this error (e.g. by starting your secrets wallet service or installing a keyring) please try restarting the app and try logging in again');
 			}
 		}
 		else {

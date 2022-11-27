@@ -25,8 +25,9 @@ export class DataView implements vscode.WebviewViewProvider {
 	// TODO: implement opening to editor
 
 	// TODO: fix that viewWelcome is overriden: 'Please log in using your AoC cookie<br/><a href="https://adventofcode.com">Open AoC Website</a><br/><a href="command:advent-of-vscode.login">Log In</a>'
+	// --> Reason: viewWelcome only works for tree view... Have to check if logged in...
 
-	resolveWebviewView(webviewView: vscode.WebviewView, token: any): void {
+	resolveWebviewView(webviewView: vscode.WebviewView): void {
 		this._view = webviewView;
 
 		this._view.webview.options = { enableScripts: true };
@@ -46,11 +47,18 @@ export class DataView implements vscode.WebviewViewProvider {
 		this._view!.description = this.title;
 		this._view?.webview.postMessage('Please wait...'); // TODO: replace with loading animation (maybe AoVSC icon rotating)
 
-		this.data = await fetchData(year, day);
-		this._view?.webview.postMessage(this.data !== undefined
-			? `<code>${this.data.replace(/\r?\n/g, '<br/>')}</code>`
-			: undefined
-		);
+		const loggedIn: string | undefined = await vscode.commands.executeCommand('advent-of-vscode.loadCookie');
+		if (loggedIn !== undefined) {
+			this.data = await fetchData(year, day);
+			this._view?.webview.postMessage(this.data !== undefined
+				? `<code>${this.data.replace(/\r?\n/g, '<br/>')}</code>`
+				: undefined
+			);
+		}
+		else {
+			// set webview content to login area
+		}
+
 	}
 
 	async getData(): Promise<[number | undefined, number | undefined, string | undefined]> {
