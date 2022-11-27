@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 
 import { login } from './commands/login';
 import { logout } from './commands/logout';
-import { copyData } from './commands/copyData';
 import { saveData } from './commands/saveData';
 
 import { SelectDayView } from './views/selectDayView';
@@ -46,7 +45,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	new SelectDayView(context);
 	const descriptionView: DescriptionView = new DescriptionView(context);
-	const dataView: DataView = new DataView(context);
+	const dataView: DataView = new DataView();
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.select',
@@ -66,8 +65,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	// Data
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.copyData',
-			async () => copyData(context, ...await dataView.getData())
+		vscode.commands.registerCommand('advent-of-vscode.openDataEditor',
+			() => dataView.dataEditor()
 		)
 	);
 

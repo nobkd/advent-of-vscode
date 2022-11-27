@@ -66,12 +66,6 @@
           "type": "webview",
           "name": "Description",
           "contextualTitle": "View Description of Selected Day"
-        },
-        {
-          "id": "dataView",
-          "name": "Data",
-          "type": "webview",
-          "contextualTitle": "View Data for Selected Day"
         }
       ]
     },
@@ -79,28 +73,30 @@
       "view/title": [
         {
           "command": "advent-of-vscode.login",
-          "when": "view == dataView && !advent-of-vscode.loggedIn",
-          "group": "navigation"
-        },
-        {
-          "command": "advent-of-vscode.saveData",
-          "when": "view == dataView && advent-of-vscode.loggedIn",
+          "when": "view == selectDayView && !advent-of-vscode.loggedIn",
           "group": "navigation@0"
         },
         {
-          "command": "advent-of-vscode.copyData",
-          "when": "view == dataView && advent-of-vscode.loggedIn",
-          "group": "navigation@1"
-        },
-        {
           "command": "advent-of-vscode.logout",
-          "when": "view == dataView && advent-of-vscode.loggedIn",
-          "group": "navigation@2"
+          "when": "view == selectDayView && advent-of-vscode.loggedIn",
+          "group": "navigation@0"
         },
         {
           "command": "advent-of-vscode.openDescriptionPanel",
           "when": "view == descriptionView",
-          "group": "navigation"
+          "group": "navigation@0"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "advent-of-vscode.openDataEditor",
+          "when": "view == selectDayView && viewItem == day && advent-of-vscode.loggedIn",
+          "group": "inline@1"
+        },
+        {
+          "command": "advent-of-vscode.saveData",
+          "when": "view == selectDayView && viewItem == day && advent-of-vscode.loggedIn",
+          "group": "inline@0"
         }
       ]
     },
@@ -121,9 +117,9 @@
         "icon": "$(save-as)"
       },
       {
-        "command": "advent-of-vscode.copyData",
-        "title": "Copy AoC Data to Clipboard",
-        "icon": "$(files)"
+        "command": "advent-of-vscode.openDataEditor",
+        "title": "Open AoC Data to Panel",
+        "icon": "$(preferences-open-settings)"
       },
       {
         "command": "advent-of-vscode.select",
