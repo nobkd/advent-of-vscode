@@ -22,7 +22,9 @@ export class DataView implements vscode.WebviewViewProvider {
 		);
 	}
 
-	resolveWebviewView(webviewView: vscode.WebviewView): void { // HELP !?!??!?! does not get loaded, whatever...
+	// TODO: implement opening to editor
+
+	resolveWebviewView(webviewView: vscode.WebviewView): void {
 		this._view = webviewView;
 
 		this._view.webview.options = { enableScripts: true };
