@@ -1,3 +1,4 @@
+import * as vscode from 'vscode';
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 
@@ -32,7 +33,7 @@ export async function fetchDescription(year: number, day: number): Promise<strin
 export async function fetchData(year: number, day: number): Promise<string | undefined> {
     const cookieObject: CookieObject = await getCookieObject();
     if (cookieObject.headers === undefined) {
-        return 'You are not logged in. [Log in](command:advent-of-vscode.login)';
+        return undefined;
     }
 
     const { data, status } = await axios.get(`/${year}/day/${day}/input`, {

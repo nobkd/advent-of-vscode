@@ -24,7 +24,9 @@ export class DataView implements vscode.WebviewViewProvider {
 
 	// TODO: implement opening to editor
 
-	resolveWebviewView(webviewView: vscode.WebviewView): void {
+	// TODO: fix that viewWelcome is overriden: 'Please log in using your AoC cookie<br/><a href="https://adventofcode.com">Open AoC Website</a><br/><a href="command:advent-of-vscode.login">Log In</a>'
+
+	resolveWebviewView(webviewView: vscode.WebviewView, token: any): void {
 		this._view = webviewView;
 
 		this._view.webview.options = { enableScripts: true };
