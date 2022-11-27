@@ -1,4 +1,3 @@
-import * as vscode from 'vscode';
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 

@@ -1,5 +1,5 @@
-import { TextEncoder } from 'util';
 import * as vscode from 'vscode';
+import { TextEncoder } from 'util';
 
 export async function saveData(context: vscode.ExtensionContext, year: number | undefined, day: number | undefined, data: string | undefined): Promise<void> {
     if (year === undefined || day === undefined || data === undefined) {

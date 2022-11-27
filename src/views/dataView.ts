@@ -4,6 +4,8 @@ import { fetchData } from '../utils/request';
 
 // https://code.visualstudio.com/api/extension-guides/webview
 
+// TODO: destructure to commands as a view no longer exists
+
 export class DataView {
 	private data?: string = undefined;
 	private year?: number;
