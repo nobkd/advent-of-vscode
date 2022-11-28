@@ -137,13 +137,13 @@
     ]
   },
   "scripts": {
+    "package": "vsce package",
     "vscode:prepublish": "npm run esbuild-base -- --minify",
     "esbuild-base": "rimraf out && esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
-    "build": "npm run esbuild-base -- --sourcemap",
-    "watch": "npm run esbuild-base -- --sourcemap --watch",
     "compile": "rimraf out && tsc -p ./",
+    "watch": "npm run compile -- -watch",
     "pretest": "npm run compile && npm run lint",
-    "test": "node ./out/test/runTest.js",
+    "test": "npm run compile && node ./out/test/runTest.js",
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
@@ -161,7 +161,8 @@
     "mocha": "^10.1.0",
     "node-fetch": "^3.3.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "vsce": "^2.14.0"
   },
   "dependencies": {
     "axios": "^1.2.0",
