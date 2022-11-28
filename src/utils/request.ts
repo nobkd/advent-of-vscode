@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { parse } from 'node-html-parser';
 
-import { getCookieObject, CookieObject } from './helper';
+import { getCookieObject, type CookieObject } from './helper';
 
 const base: string = 'https://adventofcode.com';
 
