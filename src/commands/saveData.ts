@@ -4,14 +4,12 @@ import { TextEncoder } from 'util';
 import { selectionProxy } from '../extension';
 import { fetchData } from '../utils/request';
 
-export async function saveData(context: vscode.ExtensionContext): Promise<void> {
+export async function saveData(context: vscode.ExtensionContext, year: number | undefined, day: number | undefined): Promise<void> {
     if (selectionProxy.loggedIn === false) {
         vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
     }
 
     // TODO: get data from inline command
-    const year = undefined;
-    const day = undefined;
     const data = await fetchData(year, day);
 
     const filename = `aoc-${selectionProxy.year}-${selectionProxy.day}.txt`;

@@ -85,6 +85,16 @@
           "command": "advent-of-vscode.openDescriptionPanel",
           "when": "view == descriptionView",
           "group": "navigation@0"
+        },
+        {
+          "command": "advent-of-vscode.saveData",
+          "when": "view == descriptionView && advent-of-vscode.loggedIn",
+          "group": "navigation@1"
+        },
+        {
+          "command": "advent-of-vscode.openDataEditor",
+          "when": "view == descriptionView && advent-of-vscode.loggedIn",
+          "group": "navigation@2"
         }
       ],
       "view/item/context": [

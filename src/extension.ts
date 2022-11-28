@@ -91,7 +91,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.saveData',
-			async () => saveData(context)
+			() => saveData(context, selectionProxy.year, selectionProxy.day) // TODO: change for inline cmds
 		)
 	);
 }
