@@ -7,10 +7,7 @@ export async function openDataEditor(context: vscode.ExtensionContext, year: num
     if (content === undefined) {
         return;
     }
-    const doc = await vscode.workspace.openTextDocument({
-        content: content,
-        language: 'txt'
-    });
+    const doc = await vscode.workspace.openTextDocument({ content: content });
 
     const filename = `aoc-${year}-${day}.txt`;
     const workspace = vscode.workspace.workspaceFolders;
@@ -19,7 +16,6 @@ export async function openDataEditor(context: vscode.ExtensionContext, year: num
 
     const editor = vscode.window.showTextDocument(doc, {
         preview: true,
-        preserveFocus: true,
         viewColumn: vscode.ViewColumn.Active
     });
 }
