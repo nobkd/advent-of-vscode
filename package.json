@@ -96,18 +96,6 @@
           "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
           "group": "navigation@2"
         }
-      ],
-      "view/item/context": [
-        {
-          "command": "advent-of-vscode.openDataEditor",
-          "when": "view == selectDayView && viewItem == day && advent-of-vscode.loggedIn",
-          "group": "inline@1"
-        },
-        {
-          "command": "advent-of-vscode.saveData",
-          "when": "view == selectDayView && viewItem == day && advent-of-vscode.loggedIn",
-          "group": "inline@0"
-        }
       ]
     },
     "commands": [
