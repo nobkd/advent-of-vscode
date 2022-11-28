@@ -6,8 +6,6 @@ type Tree = object & {
     children?: Tree[]
 };
 
-// https://code.visualstudio.com/api/extension-guides/tree-view
-
 export class SelectDayView {
     constructor(context: vscode.ExtensionContext) {
         context.subscriptions.push(

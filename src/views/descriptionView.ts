@@ -3,8 +3,6 @@ import * as vscode from 'vscode';
 import { getDefaultHtml, getNonce } from '../utils/helper';
 import { fetchDescription } from '../utils/request';
 
-// https://code.visualstudio.com/api/extension-guides/webview
-
 export class DescriptionView implements vscode.WebviewViewProvider {
     private _view?: vscode.WebviewView;
     private _panels: vscode.WebviewPanel[] = [];
