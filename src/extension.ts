@@ -6,9 +6,22 @@ import { saveData } from './commands/saveData';
 
 import { SelectDayView } from './views/selectDayView';
 import { DescriptionView } from './views/descriptionView';
-import { DataView } from './views/dataView';
 
 import { testCookie } from './utils/request';
+
+type Selection = object & {
+	year?: number,
+	day?: number,
+	loggedIn?: boolean
+};
+
+const selection: Selection = {
+	year: undefined,
+	day: undefined,
+	loggedIn: false
+};
+
+export let selectionProxy: Selection;
 
 export async function activate(context: vscode.ExtensionContext) {
 	// TODO: check if internet available
@@ -16,20 +29,14 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.loadCookie', async (): Promise<string | undefined> => {
 			const cookie: string | undefined = await context.secrets.get('advent-of-vscode.loginCookie');
-			const loggedIn: boolean = await testCookie(cookie);
 
+			const loggedIn: boolean = await testCookie(cookie);
 			vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', loggedIn);
+			selectionProxy.loggedIn = loggedIn;
 
 			return loggedIn ? cookie : undefined;
 		})
 	);
-
-	// context.secrets.onDidChange((e) => e.key === undefined ? context.globalState.update('advent-') ) // not working properly....
-	// TODO: on cookie save state change: update loginstatus
-	// TODO: on login status change: update data & description view
-
-	/// Checks if cookie is stored and working, if so, sets user status to logged in
-	vscode.commands.executeCommand('advent-of-vscode.loadCookie');
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.login',
@@ -45,13 +52,25 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	new SelectDayView(context);
 	const descriptionView: DescriptionView = new DescriptionView(context);
-	const dataView: DataView = new DataView();
+
+	selectionProxy = new Proxy(selection, {
+		set(target: Selection, prop: keyof Selection, value: boolean | (number | undefined)) {
+			if (target[prop] !== value) {
+				target[prop] = value as never;
+				descriptionView.selectDay(target.year, target.day);
+			}
+			return true;
+		}
+	});
+
+	/// Checks if cookie is stored and working, if so, sets user status to logged in
+	vscode.commands.executeCommand('advent-of-vscode.loadCookie');
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.select',
 			(year: number, day: number) => {
-				descriptionView.selectDay(year, day);
-				dataView.selectDay(year, day);
+				selectionProxy.year = year;
+				selectionProxy.day = day;
 			})
 	);
 
@@ -66,13 +85,13 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Data
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.openDataEditor',
-			() => dataView.dataEditor()
+			() => { }
 		)
 	);
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.saveData',
-			async () => saveData(context, ...await dataView.getData())
+			async () => saveData(context)
 		)
 	);
 }

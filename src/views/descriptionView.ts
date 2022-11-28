@@ -48,8 +48,12 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         return panel;
     }
 
-    async selectDay(year: number, day: number): Promise<void> {
+    async selectDay(year: number | undefined, day: number | undefined): Promise<void> {
         // TODO: get data from aoc / cache
+
+        if (year === undefined || day === undefined) {
+            return;
+        }
 
         this.title = `AoC ${year} Day ${day}`;
         this.description = 'Please wait...'; // TODO: replace with animation (maybe AoVSC icon rotating)

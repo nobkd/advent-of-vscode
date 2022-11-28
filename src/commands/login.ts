@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import { selectionProxy } from '../extension';
 import { testCookie } from '../utils/request';
 
 export async function login(context: vscode.ExtensionContext): Promise<void> {
@@ -26,6 +27,7 @@ export async function login(context: vscode.ExtensionContext): Promise<void> {
 			if (await context.secrets.get('advent-of-vscode.loginCookie') !== undefined) {
 				vscode.window.showInformationMessage('Successfully logged in to AoC');
 				vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', true);
+				selectionProxy.loggedIn = true;
 			}
 			else {
 				vscode.window.showErrorMessage('Failed to store you cookie. You might have another error message explaining this. In case you could fix this error (e.g. by starting your secrets wallet service or installing a keyring) please try restarting the app and try logging in again');
