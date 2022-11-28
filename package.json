@@ -116,7 +116,7 @@
       },
       {
         "command": "advent-of-vscode.openDataEditor",
-        "title": "Open AoC Data to Panel",
+        "title": "Open AoC Data to Editor",
         "icon": "$(preferences-open-settings)"
       },
       {

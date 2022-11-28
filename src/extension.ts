@@ -90,7 +90,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Data
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.openDataEditor',
-			(year: number | undefined, day: number | undefined) => openDataEditor(context, year ?? selectionProxy.year, day ?? selectionProxy.day)
+			async (year: number | undefined, day: number | undefined) => openDataEditor(context, year ?? selectionProxy.year, day ?? selectionProxy.day)
 		)
 	);
 
