@@ -142,7 +142,7 @@
       {
         "command": "advent-of-vscode.openDescriptionPanel",
         "title": "Open AoC Description View to Panel",
-        "icon": "$(preferences-open-settings)"
+        "icon": "$(open-preview)"
       }
     ]
   },
