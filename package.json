@@ -88,12 +88,12 @@
         },
         {
           "command": "advent-of-vscode.saveData",
-          "when": "view == descriptionView && advent-of-vscode.loggedIn",
+          "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
           "group": "navigation@1"
         },
         {
           "command": "advent-of-vscode.openDataEditor",
-          "when": "view == descriptionView && advent-of-vscode.loggedIn",
+          "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
           "group": "navigation@2"
         }
       ],

@@ -71,6 +71,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			(year: number, day: number) => {
 				selectionProxy.year = year;
 				selectionProxy.day = day;
+				vscode.commands.executeCommand('setContext', 'advent-of-vscode.daySelected', true);
 			})
 	);
 
