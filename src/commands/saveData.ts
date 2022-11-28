@@ -11,6 +11,9 @@ export async function saveData(context: vscode.ExtensionContext, year: number | 
 
     // TODO: get data from inline command
     const data = await fetchData(year, day);
+    if (data === undefined) {
+        return;
+    }
 
     const filename = `aoc-${selectionProxy.year}-${selectionProxy.day}.txt`;
     const workspace = vscode.workspace.workspaceFolders;
