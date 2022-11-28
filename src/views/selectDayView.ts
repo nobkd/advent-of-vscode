@@ -67,12 +67,13 @@ function provider(): vscode.TreeDataProvider<Tree> {
             return {
                 label: element.key.toString(),
                 collapsibleState: element && element.children?.length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
-                contextValue: isDay ? "day" : "year",
+                contextValue: isDay ? 'day' : 'year',
                 command: isDay ? {
                     title: 'Select AoC Day',
                     command: 'advent-of-vscode.select',
                     arguments: [element.year, element.key]
-                } : undefined
+                } : undefined,
+                tooltip: isDay ? `AoC ${element.year} Day ${element.key}` : `AoC ${element.key}`
             };
         }
     };

@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { login } from './commands/login';
 import { logout } from './commands/logout';
 import { saveData } from './commands/saveData';
+import { openDataEditor } from './commands/openDataEditor';
 
 import { SelectDayView } from './views/selectDayView';
 import { DescriptionView } from './views/descriptionView';
@@ -33,6 +34,8 @@ export async function activate(context: vscode.ExtensionContext) {
 			const loggedIn: boolean = await testCookie(cookie);
 			vscode.commands.executeCommand('setContext', 'advent-of-vscode.loggedIn', loggedIn);
 			selectionProxy.loggedIn = loggedIn;
+			selectionProxy.year = context.globalState.get('advent-of-vscode.selected', { year: undefined }).year;
+			selectionProxy.day = context.globalState.get('advent-of-vscode.selected', { day: undefined }).day;
 
 			return loggedIn ? cookie : undefined;
 		})
@@ -58,6 +61,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			if (target[prop] !== value) {
 				target[prop] = value as never;
 				descriptionView.selectDay(target.year, target.day);
+				vscode.commands.executeCommand('setContext', 'advent-of-vscode.daySelected', target.year !== undefined && target.day !== undefined);
 			}
 			return true;
 		}
@@ -71,7 +75,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			(year: number, day: number) => {
 				selectionProxy.year = year;
 				selectionProxy.day = day;
-				vscode.commands.executeCommand('setContext', 'advent-of-vscode.daySelected', true);
+				context.globalState.update('advent-of-vscode.selected', { year: year, day: day });
 			})
 	);
 
@@ -86,13 +90,13 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Data
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.openDataEditor',
-			() => { }
+			(year: number | undefined, day: number | undefined) => openDataEditor(context, year ?? selectionProxy.year, day ?? selectionProxy.day)
 		)
 	);
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.saveData',
-			() => saveData(context, selectionProxy.year, selectionProxy.day) // TODO: change for inline cmds
+			(year: number | undefined, day: number | undefined) => saveData(context, year ?? selectionProxy.year, day ?? selectionProxy.day) // TODO: change for inline cmds
 		)
 	);
 }

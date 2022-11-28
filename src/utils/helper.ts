@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
 
+import { fetchData } from './request';
+import { selectionProxy } from '../extension';
+
 export function getNonce(): string {
     let text: string = '';
     const possible: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -38,4 +41,12 @@ export function getDefaultHtml(defaultData: any) {
             </body>
         </html>
     `;
+}
+
+export function collectFetchData(year: number | undefined, day: number | undefined): Promise<string | undefined> {
+    if (selectionProxy.loggedIn === false) {
+        vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
+    }
+
+    return fetchData(year, day);
 }

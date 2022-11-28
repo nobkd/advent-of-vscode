@@ -1,21 +1,15 @@
 import * as vscode from 'vscode';
-
 import { TextEncoder } from 'util';
-import { selectionProxy } from '../extension';
-import { fetchData } from '../utils/request';
+
+import { collectFetchData } from '../utils/helper';
 
 export async function saveData(context: vscode.ExtensionContext, year: number | undefined, day: number | undefined): Promise<void> {
-    if (selectionProxy.loggedIn === false) {
-        vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
-    }
-
-    // TODO: get data from inline command
-    const data = await fetchData(year, day);
+    const data = await collectFetchData(year, day);
     if (data === undefined) {
         return;
     }
 
-    const filename = `aoc-${selectionProxy.year}-${selectionProxy.day}.txt`;
+    const filename = `aoc-${year}-${day}.txt`;
     const workspace = vscode.workspace.workspaceFolders;
 
     const savePath: vscode.Uri | undefined = await vscode.window.showSaveDialog(
