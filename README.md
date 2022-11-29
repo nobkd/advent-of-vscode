@@ -1,6 +1,6 @@
 # Advent of VSCode
 
-<img href="res/icon.svg" alt="Project Icon: A star with color gradient from the orange center to the yellow-lime tips" align=right width=175 height=175 />
+<img src="res/icon.svg" alt="Project Icon: A star with color gradient from the orange center to the yellow-lime tips" align=right width=175 height=175 />
 
 This extension is for VSCode to provide access to [Advent of Code](https://adventofcode.com) Descriptions and Inputs directly in your Editor.
 
