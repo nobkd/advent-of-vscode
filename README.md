@@ -18,6 +18,14 @@ This extension is to provide access to [Advent of Code](https://adventofcode.com
 
 <!-- Insert Animations / Pictures for how the extension works -->
 
+## Installation
+
+Go to [releases](releases) and download the latest version.
+
+Open VSCode or VSCodium, press `Ctrl+Shift+P` to *Show All Commands*  type `Install from VSIX`, run the command and select the downloaded `.vsix` file.
+
+You should see a star in the Activity Bar on the side, and you're done.
+
 ## TODO
 
 - [ ] Create documentation & fix README
