@@ -24,3 +24,7 @@ This extension is to provide access to [Advent of Code](https://adventofcode.com
 - [ ] Implement better *Open Input to Editor* function & give feedback when fetching data
 - [ ] Implement ability to submit solutions to AoC and get a proper feedback
 - [ ] Refactor code for readability and stability
+
+## Known Issues
+
+- On some Linux distributions you need to install/start a keyring/wallet to save your cookie. VSCode supports *GNOME Keyring* and *KDE Wallet* (You might have to start *KWallet Manager* and maybe resater VSCode before being able to store the cookie) on Linux. Windows and Mac shouldn't have any problems related to this.
