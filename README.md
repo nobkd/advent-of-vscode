@@ -26,6 +26,8 @@ Open VSCode or VSCodium, press `Ctrl+Shift+P` to *Show All Commands*  type `Inst
 
 You should see a star in the Activity Bar on the side, and you're done.
 
+> WARNING: Please bear in mind, that because of this method you will not get updates if you don't download and install them by yourselve.
+
 ## TODO
 
 - [ ] Create documentation & fix README
