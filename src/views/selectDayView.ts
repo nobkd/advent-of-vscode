@@ -25,7 +25,7 @@ function generateTree(): Tree[] {
     const day: number = date.getDate();
 
     const startYear: number = 2015;
-    const isDecember: boolean = month === 12;
+    const isDecember: boolean = month === 11; /// Month zero-indexed???
     const puzzleDays: number = 25;
 
     const yearCount: number = year - startYear;
