@@ -6,15 +6,31 @@ type Tree = object & {
     children?: Tree[]
 };
 
+type RefreshTreeDataProvider<T> = vscode.TreeDataProvider<T> & {
+    refresh(): void
+};
+
 export class SelectDayView {
+    private date: Date = new Date();
+    private provider: RefreshTreeDataProvider<Tree> = provider();
+
     constructor(context: vscode.ExtensionContext) {
         context.subscriptions.push(
             vscode.window.createTreeView('selectDayView', {
-                treeDataProvider: provider(),
+                treeDataProvider: this.provider,
                 showCollapseAll: true,
                 canSelectMany: false,
             })
         );
+
+        setInterval(
+            () => {
+                const datecheck = new Date();
+                if (this.date.getDate() !== datecheck.getDate()) {
+                    this.provider.refresh();
+                    this.date = datecheck;
+                }
+            }, 60000);
     }
 }
 
@@ -52,8 +68,10 @@ function generateTree(): Tree[] {
     return yearsObjects;
 }
 
-function provider(): vscode.TreeDataProvider<Tree> {
-    const tree: Tree[] = generateTree();
+function provider(): RefreshTreeDataProvider<Tree> {
+    let tree: Tree[] = generateTree();
+
+    const onDidChangeTreeData: vscode.EventEmitter<undefined | void> = new vscode.EventEmitter<undefined | void>();
 
     return {
         getChildren: (element: Tree | undefined): Tree[] | undefined => {
@@ -73,6 +91,8 @@ function provider(): vscode.TreeDataProvider<Tree> {
                 } : undefined,
                 tooltip: isDay ? `AoC ${element.year} Day ${element.key}` : `AoC ${element.key}`
             };
-        }
+        },
+        onDidChangeTreeData: onDidChangeTreeData.event,
+        refresh: () => {tree = generateTree(); onDidChangeTreeData.fire();}
     };
 }
