@@ -47,13 +47,13 @@ export class SelectDayView {
 
 function generateTree(): Tree[] {
     const date: Date = new Date();
-    date.setDate(date.getUTCDate() - (date.getUTCHours() < 5 ? 1 : 0)); // if not yet 5 o'clock use last day, else use current day
+    date.setUTCDate(date.getUTCDate() - (date.getUTCHours() < 5 ? 1 : 0)); // if not yet 5 o'clock use last day, else use current day
     const year: number = date.getUTCFullYear();
     const month: number = date.getUTCMonth();
     const day: number = date.getUTCDate();
 
     const startYear: number = 2015;
-    const isDecember: boolean = month === 11; /// Month zero-indexed???
+    const isDecember: boolean = month === 11; // Month is zero-based
     const puzzleDays: number = 25;
 
     const yearCount: number = year - startYear;
