@@ -53,7 +53,14 @@ export async function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
-	new SelectDayView(context);
+	const selectDayView: SelectDayView = new SelectDayView(context);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('advent-of-vscode.refreshTree',
+			() => selectDayView.refresh()
+		)
+	);
+
 	const descriptionView: DescriptionView = new DescriptionView(context);
 
 	selectionProxy = new Proxy(selection, {
@@ -86,6 +93,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
+	context.subscriptions.push(
+		vscode.commands.registerCommand('advent-of-vscode.refreshDescription',
+			() => descriptionView.selectDay(selectionProxy.year, selectionProxy.day)
+		)
+	);
 
 	// Data
 	context.subscriptions.push(

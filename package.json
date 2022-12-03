@@ -40,7 +40,9 @@
     "onCommand:advent-of-vscode.openDescriptionPanel",
     "onCommand:advent-of-vscode.select",
     "onCommand:advent-of-vscode.saveData",
-    "onCommand:advent-of-vscode.copyData"
+    "onCommand:advent-of-vscode.copyData",
+    "onCommand:advent-of-vscode.refreshDescription",
+    "onCommand:advent-of-vscode.refreshTree"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -82,19 +84,29 @@
           "group": "navigation@0"
         },
         {
+          "command": "advent-of-vscode.refreshTree",
+          "when": "view == selectDayView",
+          "group": "navigation@1"
+        },
+        {
           "command": "advent-of-vscode.openDescriptionPanel",
           "when": "view == descriptionView",
           "group": "navigation@0"
         },
         {
+          "command": "advent-of-vscode.refreshDescription",
+          "when": "view == descriptionView",
+          "group": "navigation@1"
+        },
+        {
           "command": "advent-of-vscode.saveData",
           "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
-          "group": "navigation@1"
+          "group": "navigation@2"
         },
         {
           "command": "advent-of-vscode.openDataEditor",
           "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
-          "group": "navigation@2"
+          "group": "navigation@3"
         }
       ]
     },
@@ -131,6 +143,16 @@
         "command": "advent-of-vscode.openDescriptionPanel",
         "title": "Open AoC Description View to Panel",
         "icon": "$(open-preview)"
+      },
+      {
+        "command": "advent-of-vscode.refreshDescription",
+        "title": "Refresh AoC Description",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "advent-of-vscode.refreshTree",
+        "title": "Refresh AoC Select Day Tree",
+        "icon": "$(refresh)"
       }
     ]
   },

@@ -25,6 +25,7 @@ export async function getCookieObject(): Promise<CookieObject> {
 export function getDefaultHtml(defaultData: any) {
     const nonce = getNonce();
 
+    // TODO: insert loading spinner css
     return `
         <!DOCTYPE html>
         <html lang="en" style="scrollbar-gutter: stable;">

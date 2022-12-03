@@ -39,6 +39,10 @@ export class SelectDayView {
             ).getTime() - this.date.getTime(),
         );
     }
+
+    refresh(): void {
+        this.provider.refresh();
+    }
 }
 
 function generateTree(): Tree[] {
