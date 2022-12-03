@@ -31,7 +31,7 @@ export class SelectDayView {
             new Date(Date.UTC(
                 this.date.getUTCFullYear(),
                 this.date.getUTCMonth(),
-                this.date.getUTCDate() + (this.date.getUTCHours() < 5 ? 0 : 1), // if not yet 5 o'clock use current day, else take next day
+                this.date.getUTCDate() + (this.date.getUTCHours() < 5 ? 0 : 1), // if not yet 5 o'clock use current day, else use next day
                 5, // `UTC-5 00:00` => `UTC 05:00`
                 0,
                 0,
@@ -47,9 +47,10 @@ export class SelectDayView {
 
 function generateTree(): Tree[] {
     const date: Date = new Date();
-    const year: number = date.getFullYear();
-    const month: number = date.getMonth();
-    const day: number = date.getDate();
+    date.setDate(date.getUTCDate() - (date.getUTCHours() < 5 ? 1 : 0)); // if not yet 5 o'clock use last day, else use current day
+    const year: number = date.getUTCFullYear();
+    const month: number = date.getUTCMonth();
+    const day: number = date.getUTCDate();
 
     const startYear: number = 2015;
     const isDecember: boolean = month === 11; /// Month zero-indexed???
