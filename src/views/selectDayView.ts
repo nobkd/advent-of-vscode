@@ -25,12 +25,19 @@ export class SelectDayView {
 
         setInterval(
             () => {
-                const datecheck = new Date();
-                if (this.date.getDate() !== datecheck.getDate()) {
-                    this.provider.refresh();
-                    this.date = datecheck;
-                }
-            }, 60000);
+                this.provider.refresh();
+                this.date = new Date();
+            },
+            new Date(
+                this.date.getFullYear(),
+                this.date.getMonth(),
+                this.date.getDate() + 1,
+                0,
+                0,
+                0,
+                10
+            ).getTime() - this.date.getTime(),
+        );
     }
 }
 
@@ -93,6 +100,6 @@ function provider(): RefreshTreeDataProvider<Tree> {
             };
         },
         onDidChangeTreeData: onDidChangeTreeData.event,
-        refresh: () => {tree = generateTree(); onDidChangeTreeData.fire();}
+        refresh: () => { tree = generateTree(); onDidChangeTreeData.fire(); }
     };
 }
