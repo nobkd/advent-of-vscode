@@ -28,15 +28,15 @@ export class SelectDayView {
                 this.provider.refresh();
                 this.date = new Date();
             },
-            new Date(
-                this.date.getFullYear(),
-                this.date.getMonth(),
-                this.date.getDate() + 1,
+            new Date(Date.UTC(
+                this.date.getUTCFullYear(),
+                this.date.getUTCMonth(),
+                this.date.getUTCDate() + (this.date.getUTCHours() < 5 ? 0 : 1), // if not yet 5 o'clock use current day, else take next day
+                5, // `UTC-5 00:00` => `UTC 05:00`
                 0,
                 0,
-                0,
-                10
-            ).getTime() - this.date.getTime(),
+                10 // placeholder / safety time
+            )).getTime() - this.date.getTime(),
         );
     }
 
