@@ -39,8 +39,8 @@
     "onCommand:advent-of-vscode.loadCookie",
     "onCommand:advent-of-vscode.openDescriptionPanel",
     "onCommand:advent-of-vscode.select",
-    "onCommand:advent-of-vscode.saveData",
-    "onCommand:advent-of-vscode.copyData",
+    "onCommand:advent-of-vscode.saveInput",
+    "onCommand:advent-of-vscode.openInputEditor",
     "onCommand:advent-of-vscode.refreshDescription",
     "onCommand:advent-of-vscode.refreshTree"
   ],
@@ -99,12 +99,12 @@
           "group": "navigation@1"
         },
         {
-          "command": "advent-of-vscode.saveData",
+          "command": "advent-of-vscode.saveInput",
           "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
           "group": "navigation@2"
         },
         {
-          "command": "advent-of-vscode.openDataEditor",
+          "command": "advent-of-vscode.openInputEditor",
           "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
           "group": "navigation@3"
         }
@@ -122,13 +122,13 @@
         "icon": "$(log-out)"
       },
       {
-        "command": "advent-of-vscode.saveData",
-        "title": "Save AoC Data as File",
+        "command": "advent-of-vscode.saveInput",
+        "title": "Save AoC Input as File",
         "icon": "$(save-as)"
       },
       {
-        "command": "advent-of-vscode.openDataEditor",
-        "title": "Open AoC Data to Editor",
+        "command": "advent-of-vscode.openInputEditor",
+        "title": "Open AoC Input to Editor",
         "icon": "$(preferences-open-settings)"
       },
       {

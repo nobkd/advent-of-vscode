@@ -2,8 +2,8 @@ import * as vscode from 'vscode';
 
 import { login } from './commands/login';
 import { logout } from './commands/logout';
-import { saveData } from './commands/saveData';
-import { openDataEditor } from './commands/openDataEditor';
+import { saveInput } from './commands/saveInput';
+import { openInputEditor } from './commands/openInputEditor';
 
 import { SelectDayView } from './views/selectDayView';
 import { DescriptionView } from './views/descriptionView';
@@ -99,16 +99,16 @@ export async function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
-	// Data
+	// Input
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.openDataEditor',
-			async (year: number | undefined, day: number | undefined) => openDataEditor(context, year ?? selectionProxy.year, day ?? selectionProxy.day)
+		vscode.commands.registerCommand('advent-of-vscode.openInputEditor',
+			async (year: number | undefined, day: number | undefined) => openInputEditor(context, year ?? selectionProxy.year, day ?? selectionProxy.day)
 		)
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('advent-of-vscode.saveData',
-			(year: number | undefined, day: number | undefined) => saveData(context, year ?? selectionProxy.year, day ?? selectionProxy.day) // TODO: change for inline cmds
+		vscode.commands.registerCommand('advent-of-vscode.saveInput',
+			(year: number | undefined, day: number | undefined) => saveInput(context, year ?? selectionProxy.year, day ?? selectionProxy.day) // TODO: change for inline cmds
 		)
 	);
 }

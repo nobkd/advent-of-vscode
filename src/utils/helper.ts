@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { fetchData } from './request';
+import { fetchInput } from './request';
 import { selectionProxy } from '../extension';
 
 export function getNonce(): string {
@@ -44,10 +44,10 @@ export function getDefaultHtml(defaultData: any) {
     `;
 }
 
-export function collectFetchData(year: number | undefined, day: number | undefined): Promise<string | undefined> {
+export function collectFetchInput(year: number | undefined, day: number | undefined): Promise<string | undefined> {
     if (selectionProxy.loggedIn === false) {
         vscode.window.showErrorMessage('Please [log in](command:advent-of-vscode.login) before getting data');
     }
 
-    return fetchData(year, day);
+    return fetchInput(year, day);
 }

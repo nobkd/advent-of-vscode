@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 import { TextEncoder } from 'util';
 
-import { collectFetchData } from '../utils/helper';
+import { collectFetchInput } from '../utils/helper';
 
-export async function saveData(context: vscode.ExtensionContext, year: number | undefined, day: number | undefined): Promise<void> {
-    const data = await collectFetchData(year, day);
+export async function saveInput(context: vscode.ExtensionContext, year: number | undefined, day: number | undefined): Promise<void> {
+    const data = await collectFetchInput(year, day);
     if (data === undefined) {
         return;
     }

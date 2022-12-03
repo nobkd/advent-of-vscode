@@ -33,7 +33,7 @@ export async function fetchDescription(year: number, day: number): Promise<strin
 }
 
 
-export async function fetchData(year: number | undefined, day: number | undefined): Promise<string | undefined> {
+export async function fetchInput(year: number | undefined, day: number | undefined): Promise<string | undefined> {
     if (year === undefined || day === undefined) {
         return;
     }
