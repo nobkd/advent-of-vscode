@@ -12,7 +12,7 @@ export function getNonce(): string {
     return text;
 }
 
-export type CookieObject = object & {headers?: {cookie: string}};
+export type CookieObject = object & { headers?: { cookie: string } };
 
 export async function getCookieObject(): Promise<CookieObject> {
     const cookie: string | undefined = await vscode.commands.executeCommand('advent-of-vscode.loadCookie');
@@ -22,8 +22,9 @@ export async function getCookieObject(): Promise<CookieObject> {
     return {};
 }
 
-export function getDefaultHtml(defaultData: any) {
-    const nonce = getNonce();
+export function getDefaultHtml(defaultData: any, webview: vscode.Webview, context: vscode.ExtensionContext) {
+    const scriptNonce = getNonce();
+    const styleNonce = getNonce();
 
     // TODO: insert loading spinner css
     return `
@@ -32,13 +33,22 @@ export function getDefaultHtml(defaultData: any) {
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}';"/>
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'nonce-${styleNonce}'; script-src 'nonce-${scriptNonce}';"/>
             </head>
             <body>
                 <div id="view">${defaultData}</div>
-                <script nonce="${nonce}">
+                <script nonce="${scriptNonce}">
                     window.addEventListener('message', event => document.getElementById('view').innerHTML = event.data);
                 </script>
+                <style nonce="${styleNonce}">
+                    .spinner:before {
+                        width: 25px;
+                        height: 25px;
+                        background-color: orange;
+                        background-image: url("${vscode.Uri.joinPath(context.extensionUri, 'res', 'icon.svg')}");
+                        background-size: 25px 25px;
+                    }
+                </style>
             </body>
         </html>
     `;

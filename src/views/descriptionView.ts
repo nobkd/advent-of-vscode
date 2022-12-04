@@ -25,10 +25,10 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         this._view.webview.options = { enableScripts: true };
         this._view.description = this.title;
 
-        this._view.webview.html = getDefaultHtml(this.description);
+        this._view.webview.html = getDefaultHtml(this.description, webviewView.webview, this.context);
     }
 
-    async descriptionPanel(): Promise<vscode.WebviewPanel> {
+    async descriptionPanel(): Promise<vscode.WebviewPanel> { // TODO: use workspaceStorage to reopen panels after reopening vscode
         const panel: vscode.WebviewPanel = vscode.window.createWebviewPanel(`descriptionPanel-${getNonce()}`, // TODO: get UNIQUE nonce
             this.title,
             vscode.ViewColumn.Active,
@@ -53,7 +53,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         // TODO: get data from aoc / cache
 
         this.title = `AoC ${year} Day ${day}`;
-        this.description = 'Please wait...'; // TODO: replace with animation (maybe AoVSC icon rotating)
+        this.description = '<div align="center" class="spinner">a</div>'; // TODO: replace with animation (maybe AoVSC icon rotating)
 
         this._view!.description = this.title;
         this._view?.webview.postMessage(this.description);
