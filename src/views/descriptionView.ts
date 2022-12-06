@@ -53,7 +53,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
         // TODO: get data from aoc / cache
 
         this.title = `AoC ${year} Day ${day}`;
-        this.description = '<div align="center" class="spinner">a</div>'; // TODO: replace with animation (maybe AoVSC icon rotating)
+        this.description = '<div class="spinner"></div>';
 
         this._view!.description = this.title;
         this._view?.webview.postMessage(this.description);

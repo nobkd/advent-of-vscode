@@ -33,7 +33,7 @@ export function getDefaultHtml(defaultData: any, webview: vscode.Webview, contex
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'nonce-${styleNonce}'; script-src 'nonce-${scriptNonce}';"/>
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'nonce-${styleNonce}'; img-src https: ${webview.cspSource}; script-src 'nonce-${scriptNonce}';"/>
             </head>
             <body>
                 <div id="view">${defaultData}</div>
@@ -41,12 +41,27 @@ export function getDefaultHtml(defaultData: any, webview: vscode.Webview, contex
                     window.addEventListener('message', event => document.getElementById('view').innerHTML = event.data);
                 </script>
                 <style nonce="${styleNonce}">
-                    .spinner:before {
-                        width: 25px;
+                    #view {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .spinner {
+                        margin: auto;
                         height: 25px;
-                        background-color: orange;
-                        background-image: url("${vscode.Uri.joinPath(context.extensionUri, 'res', 'icon.svg')}");
-                        background-size: 25px 25px;
+                        width: 25px;
+                        background-image: url("${webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'res', 'icon.png'))}");
+                        background-size: contain;
+                        background-repeat: no-repeat;
+
+                        animation: rotate 1.75s infinite;  /* TODO: Maybe rotate all the time with 'alternate' (or so)? */
+                    }
+                    @keyframes rotate {
+                        0% {
+                          transform: rotate(0deg)
+                        }
+                        100% {
+                          transform: rotate(360deg)
+                        }
                     }
                 </style>
             </body>
