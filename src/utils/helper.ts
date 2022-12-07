@@ -29,7 +29,7 @@ export function getDefaultHtml(defaultData: any, webview: vscode.Webview, contex
     // TODO: insert loading spinner css
     return `
         <!DOCTYPE html>
-        <html lang="en" style="scrollbar-gutter: stable;">
+        <html lang="en">
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,14 +41,28 @@ export function getDefaultHtml(defaultData: any, webview: vscode.Webview, contex
                     window.addEventListener('message', event => document.getElementById('view').innerHTML = event.data);
                 </script>
                 <style nonce="${styleNonce}">
-                    #view {
-                        width: 100%;
-                        height: 100%;
+                    html {
+                        scrollbar-gutter: stable;
+                        width: calc(100vw - calc(100vw - 100%));
+                        height: 100vh;
+                    }
+                    .center {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
                     }
                     .spinner {
-                        margin: auto;
-                        height: 25px;
-                        width: 25px;
+                        --size: 30px;
+
+                        position: absolute;
+                        top: calc(50% - var(--size) / 2);
+                        left: calc(50% - var(--size) / 2);
+                        transform: translate(-50%, -50%);
+
+                        height: var(--size);
+                        width: var(--size);
+                        
                         background-image: url("${webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'res', 'icon.png'))}");
                         background-size: contain;
                         background-repeat: no-repeat;

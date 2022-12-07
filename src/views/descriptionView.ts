@@ -8,7 +8,7 @@ export class DescriptionView implements vscode.WebviewViewProvider {
     private _panels: vscode.WebviewPanel[] = [];
 
     private title: string = 'AoC Description';
-    private description: string = 'Please Select a Day';
+    private description: string = '<div class="center">Please Select a Day</div>';
 
     constructor(private context: vscode.ExtensionContext) {
         this.context.subscriptions.push(
