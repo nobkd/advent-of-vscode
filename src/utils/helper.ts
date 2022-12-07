@@ -53,7 +53,7 @@ export function getDefaultHtml(defaultData: any, webview: vscode.Webview, contex
                         transform: translate(-50%, -50%);
                     }
                     .spinner {
-                        --size: 30px;
+                        --size: clamp(15px, 10vmin, 50px);
 
                         position: absolute;
                         top: calc(50% - var(--size) / 2);
