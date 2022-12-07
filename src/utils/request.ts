@@ -18,7 +18,7 @@ export async function fetchDescription(year: number, day: number): Promise<strin
         const dom = parse(data);
         const dayDescriptions = dom.querySelectorAll('.day-desc');
 
-        // TODO: cache data
+        // TODO: cache data -> use global storage, how to check if part 2 now available?
 
         /// loading all parts if logged in & part 1 completed
         let html = '';
