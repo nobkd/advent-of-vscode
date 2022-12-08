@@ -9,7 +9,7 @@ export async function saveInput(context: vscode.ExtensionContext, year: number |
         return;
     }
 
-    const filename = `aoc-${year}-${day}.txt`;
+    const filename = `aoc-${year}-${day}.txt`; // TODO: better filename / customize filenaming structure in options?
     const workspace = vscode.workspace.workspaceFolders;
 
     const savePath: vscode.Uri | undefined = await vscode.window.showSaveDialog(
