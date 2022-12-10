@@ -35,8 +35,9 @@ You should see a star in the Activity Bar on the side, and you're done.
 ## TODO
 
 - [ ] Create documentation & fix README
-- [ ] Implement better *Open Input to Editor* function & give feedback when fetching data
 - [ ] Refactor code for readability and stability
+- [ ] Reopen description panels after restart (workspace state?)
+- [ ] Implement better *Open Input to Editor* function & give feedback when fetching data
 - [ ] Make visible how many stars you have for every day (in the tree view?) and automatically select the correct level when submitting a solution
 - [ ] Reload a days' description if a solution is correctly submitted (with or without the extension)
 - [ ] Better feedback for answer submitting in extension
