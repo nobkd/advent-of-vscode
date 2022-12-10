@@ -58,6 +58,27 @@ export async function fetchInput(year: number | undefined, day: number | undefin
     return undefined;
 }
 
+export async function postAnswer(year: number, day: number, level: 1 | 2, answer: string): Promise<string | undefined> {
+    const { data, status, statusText } = await axios.post(`/${year}/day/${day}/answer`, `level=${level}&answer=${answer}`, {
+        baseURL: base,
+        responseType: 'document',
+        maxRedirects: 0,
+        ...(await getCookieObject()),
+    });
+
+    if (status === 200) {
+        const dom = parse(data);
+        const answerMessage = dom.getElementsByTagName('article')[0];
+
+        const result = answerMessage?.innerHTML.replace(/\[[^\]]+\]/g, '') // replace [return to ...]
+            .replace(/<[^>]+>/g, '') // replace html tags
+            .replace(/<\/\w>/g, '\n');
+        return result;
+    }
+    return statusText;
+}
+
+
 export async function testCookie(cookie: string | undefined): Promise<boolean> {
     if (cookie === undefined || cookie.length !== 128 || cookie.match(/\W+/)) {
         return false;

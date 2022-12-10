@@ -2,7 +2,7 @@
   "name": "advent-of-vscode",
   "displayName": "Advent of VSCode",
   "description": "",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": {
     "name": "nobkd",
     "url": "https://github.com/nobkd"
@@ -42,7 +42,8 @@
     "onCommand:advent-of-vscode.saveInput",
     "onCommand:advent-of-vscode.openInputEditor",
     "onCommand:advent-of-vscode.refreshDescription",
-    "onCommand:advent-of-vscode.refreshTree"
+    "onCommand:advent-of-vscode.refreshTree",
+    "onCommand:advent-of-vscode.submitAnswer"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -107,6 +108,11 @@
           "command": "advent-of-vscode.openInputEditor",
           "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
           "group": "navigation@3"
+        },
+        {
+          "command": "advent-of-vscode.submitAnswer",
+          "when": "view == descriptionView && advent-of-vscode.loggedIn && advent-of-vscode.daySelected",
+          "group": "navigation@4"
         }
       ]
     },
@@ -153,6 +159,11 @@
         "command": "advent-of-vscode.refreshTree",
         "title": "Refresh AoC Select Day Tree",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "advent-of-vscode.submitAnswer",
+        "title": "Submit AoC Answer",
+        "icon": "$(star)"
       }
     ]
   },

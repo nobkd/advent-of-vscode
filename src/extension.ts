@@ -4,6 +4,7 @@ import { login } from './commands/login';
 import { logout } from './commands/logout';
 import { saveInput } from './commands/saveInput';
 import { openInputEditor } from './commands/openInputEditor';
+import { submitAnswer } from './commands/submitAnswer';
 
 import { SelectDayView } from './views/selectDayView';
 import { DescriptionView } from './views/descriptionView';
@@ -109,6 +110,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('advent-of-vscode.saveInput',
 			(year: number | undefined, day: number | undefined) => saveInput(context, year ?? selectionProxy.year, day ?? selectionProxy.day) // TODO: change for inline cmds
+		)
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('advent-of-vscode.submitAnswer',
+			(year: number | undefined, day: number | undefined) => submitAnswer(year ?? selectionProxy.year, day ?? selectionProxy.day)
 		)
 	);
 }
