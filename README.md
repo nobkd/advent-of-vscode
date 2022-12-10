@@ -16,7 +16,9 @@ This extension is to provide access to [Advent of Code](https://adventofcode.com
   - [x] Saving as file
   - [x] (WIP) Opening to Editor
 - [x] Reloads latest selected day after a VSCode restart
-- [ ] Submitting solutions
+- [x] Submitting answers
+
+> Please keep in mind, that a cookie is valid only for about a month and logs you out automatically after that amount of time.
 
 <!-- Insert Animations / Pictures for how the extension works -->
 
@@ -34,8 +36,11 @@ You should see a star in the Activity Bar on the side, and you're done.
 
 - [ ] Create documentation & fix README
 - [ ] Implement better *Open Input to Editor* function & give feedback when fetching data
-- [ ] Implement ability to submit solutions to AoC and get a proper feedback
 - [ ] Refactor code for readability and stability
+- [ ] Make visible how many stars you have for every day (in the tree view?) and automatically select the correct level when submitting a solution
+- [ ] Reload a days' description if a solution is correctly submitted (with or without the extension)
+- [ ] Better feedback for answer submitting in extension
+- [ ] Open tree view last selected year and select last selected day after VSCode restart
 
 ## Known Issues
 
