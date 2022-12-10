@@ -7,7 +7,7 @@ export async function openInputEditor(context: vscode.ExtensionContext, year: nu
     if (content === undefined) {
         return;
     }
-    const filename = `aoc-${year}-${day}.txt\n`;
+    const filename = `aoc-${year}-${day}.txt`;
     // TODO: set filename somehow?
     vscode.window.showTextDocument(await vscode.workspace.openTextDocument({ content: content }),
         { preview: true, viewColumn: vscode.ViewColumn.Active }

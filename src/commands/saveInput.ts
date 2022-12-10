@@ -15,7 +15,7 @@ export async function saveInput(context: vscode.ExtensionContext, year: number |
     const savePath: vscode.Uri | undefined = await vscode.window.showSaveDialog(
         {
             defaultUri: vscode.Uri.file(`${workspace !== undefined ? workspace[0].uri.path : process.env.HOME}/${filename}`),
-            saveLabel: 'Save AoC Data',
+            saveLabel: 'Save AoC Input',
             title: `AoC ${year} Day ${day}`,
             // eslint-disable-next-line @typescript-eslint/naming-convention
             filters: { 'Text': ['txt', 'aoc'] }
@@ -25,6 +25,6 @@ export async function saveInput(context: vscode.ExtensionContext, year: number |
     if (savePath !== undefined) {
         // TODO: check if file really is written
         vscode.workspace.fs.writeFile(savePath, new TextEncoder().encode(data));
-        vscode.window.showInformationMessage(`Saved [AoC Data](${savePath})`);
+        vscode.window.showInformationMessage(`Saved [AoC Input](${savePath})`);
     }
 }
