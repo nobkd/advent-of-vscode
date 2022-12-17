@@ -18,8 +18,7 @@ This extension is to provide access to [Advent of Code](https://adventofcode.com
 - [x] Reloads latest selected day after a VSCode restart
 - [x] Submitting answers
 
-> Please keep in mind, that a cookie is valid only for about a month and logs you out automatically after that amount of time.
-
+> An AoC cookie is valid only for about a month, so you're logged out automatically after the time period ends.
 <!-- Insert Animations / Pictures for how the extension works -->
 
 ## Installation
@@ -30,7 +29,7 @@ Open VSCode or VSCodium, press `Ctrl+Shift+P` to *Show All Commands*  type `Inst
 
 You should see a star in the Activity Bar on the side, and you're done.
 
-> WARNING: Please bear in mind, that because of this method you will not get updates if you don't download and install them by yourself.
+> WARNING: Manual installation won't automatically update the extension to later releases.
 
 ## TODO
 
