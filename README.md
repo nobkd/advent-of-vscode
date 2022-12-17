@@ -18,7 +18,7 @@ This extension is to provide access to [Advent of Code](https://adventofcode.com
 - [x] Reloads latest selected day after a VSCode restart
 - [x] Submitting answers
 
-> An AoC cookie is valid only for about a month, so you're logged out automatically after the time period ends.
+> An AoC cookie is valid only for about a month, so you're logged out automatically after that period of time ends.
 <!-- Insert Animations / Pictures for how the extension works -->
 
 ## Installation
