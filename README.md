@@ -39,7 +39,7 @@ You should see a star in the Activity Bar on the side, and you're done.
 - [ ] Reload a days' description if a solution is correctly submitted (with or without the extension)
 - [ ] Better feedback for answer submitting in extension
 - [ ] Open tree view last selected year and select last selected day after VSCode restart
-- [ ] Clear cookie from secrets when uninstalling extension
+- [ ] Clear cookie from secrets when uninstalling extension ([Extension Uninstall Hook](https://code.visualstudio.com/api/references/extension-manifest#extension-uninstall-hook))
 
 ## Known Issues
 
