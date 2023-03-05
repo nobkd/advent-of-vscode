@@ -1,5 +1,5 @@
 # Advent of VSCode
-[![](https://shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![](https://shields.io/github/languages/top/nobkd/advent-of-vscode?style=flat)]()
 [![](https://shields.io/github/package-json/v/nobkd/advent-of-vscode?style=flat)](https://github.com/nobkd/advent-of-vscode/releases/latest)
 
 <img src="res/icon.png" alt="Project Icon: A star with color gradient from the orange center over yellow to the yellow-lime tips" align=right width=128 height=128 />
