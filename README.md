@@ -1,4 +1,7 @@
 # Advent of VSCode
+[![](https://shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)]()
+[![](https://shields.io/github/package-json/v/nobkd/advent-of-vscode?style=flat)]()
+<!--[![](https://shields.io/github/license/nobkd/advent-of-vscode?style=flat)]()-->
 
 <img src="res/icon.png" alt="Project Icon: A star with color gradient from the orange center over yellow to the yellow-lime tips" align=right width=128 height=128 />
 
