@@ -25,11 +25,11 @@
     "watch": "vite build --watch",
     "package": "vite build --mode production",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint . --ext ts",
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-ts": "^1.4.1",
+    "@stylistic/eslint-plugin": "^1.4.1",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
     "@types/vscode": "^1.84.0",

@@ -7,7 +7,7 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "@stylistic/ts"
+        "@stylistic"
     ],
     "rules": {
         "@typescript-eslint/naming-convention": [
@@ -17,8 +17,8 @@
                 "format": [ "camelCase", "PascalCase" ]
             }
         ],
-        "@stylistic/ts/semi": ["warn", "never"],
-        "@stylistic/ts/quotes": ["warn", "single"],
+        "@stylistic/semi": ["warn", "never"],
+        "@stylistic/quotes": ["warn", "single"],
         "curly": "warn",
         "eqeqeq": "warn",
         "no-throw-literal": "warn",
